@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="Jelly Brain"
 
+[gui]
+
+theme/custom_font="uid://cepqpytor6agl"
+
 [input]
 
 move_right={

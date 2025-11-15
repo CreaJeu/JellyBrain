@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://barrajepakfr0"]
+
+[ext_resource type="FontFile" uid="uid://cepqpytor6agl" path="res://Assets/Fonts/ComicSans/Comic Sans MS.ttf" id="1_bnr1x"]
+
+[resource]
+default_font = ExtResource("1_bnr1x")

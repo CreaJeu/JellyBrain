@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://du43tii7ci8qd" path="res://Scenes/PauseMenu.cs" id="1_emv3i"]
 
 [node name="PauseMenu" type="Control"]
+texture_filter = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
