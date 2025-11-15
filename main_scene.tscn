@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=17 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://pg3no1lkoatw" path="res://Assets/Placeholders/Tilemap/tilemap_packed.png" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://de1g52yab56kc" path="res://icon.svg" id="2_2c62f"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
-[ext_resource type="PackedScene" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
+[ext_resource type="PackedScene" uid="uid://d0ebt5xr1as7e" path="res://Scenes/ObjectComponents/interactable.tscn" id="2_hq1ik"]
+[ext_resource type="Script" uid="uid://bqqrmuuxfehn2" path="res://Scenes/ObjectComponents/TestObject.cs" id="2_nfk4m"]
+[ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
 [ext_resource type="Script" uid="uid://cg48ll5sqask4" path="res://Scenes/MainScene/Managers/PauseManager.cs" id="5_hq1ik"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2c62f"]
@@ -153,6 +155,12 @@ sources/0 = SubResource("TileSetAtlasSource_8mm7a")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nfk4m"]
 size = Vector2(31, 112)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66tet"]
+size = Vector2(33, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ycvg"]
+size = Vector2(61, 63)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
 size = Vector2(127, 128)
 
@@ -180,7 +188,34 @@ tile_set = SubResource("TileSet_hq1ik")
 position = Vector2(-0.5, 56)
 shape = SubResource("RectangleShape2D_nfk4m")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(232, 538)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Wall2"]
+tile_map_data = PackedByteArray("AAD//wAAAAAHAAIAAAAAAAAAAAAIAAIAAAD//wEAAAADAAEAAAD//wIAAAADAAEAAAD//wMAAAADAAEAAAD//wQAAAADAAEAAAD//wUAAAADAAEAAAD//wYAAAADAAEAAAAAAAEAAAAFAAEAAAAAAAIAAAAFAAEAAAAAAAMAAAAFAAEAAAAAAAQAAAAFAAEAAAAAAAUAAAAFAAEAAAAAAAYAAAAFAAEAAAD/////AAAEAAEAAAAAAP//AAAEAAEAAAAAAP7/AAAEAAEAAAD///7/AAAEAAEAAAD///3/AAAEAAEAAAD///z/AAAEAAEAAAAAAP3/AAAEAAEAAAAAAPz/AAAEAAEAAAD///v/AAAEAAEAAAAAAPv/AAAEAAEAAAA=")
+tile_set = SubResource("TileSet_hq1ik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(0.5, 16)
+shape = SubResource("RectangleShape2D_66tet")
+
+[node name="TestObject" type="StaticBody2D" parent="."]
+position = Vector2(468, 616)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_nfk4m")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TestObject"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAEAAEAAAAAAAEAAAAEAAEAAAD//wEAAAAEAAEAAAD+/wEAAAAEAAEAAAD+/wAAAAAEAAEAAAD+////AAAEAAEAAAD/////AAAEAAEAAAAAAP//AAAEAAEAAAAAAP7/AAAEAAEAAAABAP//AAAEAAEAAAABAAAAAAAEAAEAAAABAAEAAAAEAAEAAAD//wAAAAAEAAEAAAD+//7/AAAEAAEAAAD///7/AAAEAAEAAAABAP7/AAAEAAEAAAA=")
+tile_set = SubResource("TileSet_hq1ik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestObject"]
+shape = SubResource("RectangleShape2D_7ycvg")
+
+[node name="Interactable" parent="TestObject" node_paths=PackedStringArray("_collisionShape") instance=ExtResource("2_hq1ik")]
+_collisionShape = NodePath("../CollisionShape2D")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 position = Vector2(580, 301)
 script = ExtResource("2_d5x1h")
 
