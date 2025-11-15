@@ -14,6 +14,9 @@ public partial class Player: CharacterBody2D
 	[Export]
 	public float friction { get; set; } = 0.975f;
 	
+	[Export]
+	public float climbVelocity { get; set; } = 100f;
+	
 	public override void _Process(double delta) {
 		var velocity = Velocity;
 		
@@ -21,11 +24,19 @@ public partial class Player: CharacterBody2D
 			if (velocity.X < maxSpeed) {
 				velocity.X += acceleration * (float) delta;
 			}
+			
+			if (IsOnWall()) {
+				velocity.Y = -climbVelocity;
+			}
 		}
 		
 		if (Input.IsActionPressed("move_left")) {
 			if (velocity.X > -maxSpeed) {
 				velocity.X -= acceleration * (float) delta;
+			}
+			
+			if (IsOnWall()) {
+				velocity.Y = -climbVelocity;
 			}
 		}
 		
