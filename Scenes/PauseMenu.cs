@@ -31,7 +31,6 @@ public partial class PauseMenu : Control
 	private void _onResumeButtonPressed()
 	{
 		EmitSignal(SignalName.ResumeGame);
-		QueueFree();
 	}
 
 	private void _onSettingsButtonPressed()
