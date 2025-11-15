@@ -332,6 +332,7 @@ _collisionShape = NodePath("../CollisionShape2D")
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 position = Vector2(584, 312)
 script = ExtResource("2_d5x1h")
+climbVelocity = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 scale = Vector2(0.117187805, 0.117187805)

@@ -9,13 +9,13 @@ public partial class Player: CharacterBody2D
 	public float acceleration { get; set; } = 1000.0f;
 	
 	[Export]
-	public float maxSpeed { get; set; } = 500.0f;
+	public float maxSpeed { get; set; } = 150.0f;
 	
 	[Export]
 	public float friction { get; set; } = 0.975f;
 	
 	[Export]
-	public float climbVelocity { get; set; } = 100f;
+	public float climbVelocity { get; set; } = 40.0f;
 	
 	public override void _Process(double delta) {
 		var velocity = Velocity;
