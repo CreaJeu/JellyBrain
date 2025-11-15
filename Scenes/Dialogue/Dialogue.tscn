@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://5hee8dpqqvk"]
+
+[ext_resource type="Texture2D" uid="uid://c6tp6svyry0yn" path="res://Assets/UI/DialogueBubble.png" id="1_i33ph"]
+[ext_resource type="Texture2D" uid="uid://wmx37kg5rg6k" path="res://Assets/UI/bubble2.png" id="2_oj6as"]
+[ext_resource type="Texture2D" uid="uid://dcfsgxepcox3t" path="res://Assets/UI/CORAIL6.png" id="2_urmic"]
+[ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="3_oj6as"]
+
+[node name="Dialogue" type="Node2D"]
+position = Vector2(311, 171)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i33ph")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(116, 33)
+texture = ExtResource("2_urmic")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(121, -3)
+emitting = false
+amount = 3
+texture = ExtResource("2_oj6as")
+preprocess = 1.21
+explosiveness = 0.26
+randomness = 0.45
+gravity = Vector2(0, -500)
+initial_velocity_min = 30.93
+initial_velocity_max = 103.09
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(121, -3)
+emitting = false
+amount = 3
+texture = ExtResource("3_oj6as")
+preprocess = 1.21
+explosiveness = 0.26
+randomness = 0.45
+gravity = Vector2(0, -500)
+initial_velocity_min = 30.93
+initial_velocity_max = 103.09
