@@ -1,0 +1,117 @@
+[gd_scene load_steps=22 format=3 uid="uid://c4b18tcjulk1s"]
+
+[ext_resource type="Texture2D" uid="uid://bpy361creh2ck" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_angry1.png" id="1_1utk5"]
+[ext_resource type="Script" uid="uid://dibfm6ye0u7p4" path="res://Scenes/Prefabs/Allies/StaticNpc.cs" id="1_gju8i"]
+[ext_resource type="Texture2D" uid="uid://dusu37e2tcxrb" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_angry2.png" id="2_gju8i"]
+[ext_resource type="Texture2D" uid="uid://bj5gyg5rb71bd" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_angry3.png" id="3_rsjtj"]
+[ext_resource type="Texture2D" uid="uid://djuy0y3a4nb0x" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_angry4.png" id="4_umrhj"]
+[ext_resource type="Texture2D" uid="uid://bbvrvw5j15qre" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_closeMouth1.png" id="5_w3kmp"]
+[ext_resource type="Texture2D" uid="uid://8e6oa8w4qbbk" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_closeMouth2.png" id="6_fy6ef"]
+[ext_resource type="Texture2D" uid="uid://bp6x8c0c5g5rg" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_closeMouth3.png" id="7_brpfu"]
+[ext_resource type="Texture2D" uid="uid://dy5p2iav2icmi" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_closeMouth4.png" id="8_rxpib"]
+[ext_resource type="Texture2D" uid="uid://cqxi5xtep53dj" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_openMouth1.png" id="9_f2sya"]
+[ext_resource type="Texture2D" uid="uid://dyyr60pwrrpv3" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_openMouth2.png" id="10_4olnr"]
+[ext_resource type="Texture2D" uid="uid://cf5d4xohf6s2x" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_openMouth3.png" id="11_mjhj2"]
+[ext_resource type="Texture2D" uid="uid://b72smgr0uw0o3" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_openMouth4.png" id="12_5tqcy"]
+[ext_resource type="Texture2D" uid="uid://8273vr3tf06l" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth1.png" id="13_s5cmj"]
+[ext_resource type="Texture2D" uid="uid://bv00v14mwp7e4" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth2.png" id="14_8prjs"]
+[ext_resource type="Texture2D" uid="uid://crp8ermjd7jmg" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth3.png" id="15_vthlq"]
+[ext_resource type="Texture2D" uid="uid://cccg1lsw83snx" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth4.png" id="16_sp2lq"]
+[ext_resource type="PackedScene" uid="uid://d0ebt5xr1as7e" path="res://Scenes/ObjectComponents/interactable.tscn" id="17_qv8vf"]
+[ext_resource type="PackedScene" uid="uid://7k4l8ffis058" path="res://Scenes/Components/interest_zone.tscn" id="19_rsjtj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xhme2"]
+radius = 19.0
+height = 50.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5vmn3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1utk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gju8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rsjtj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_umrhj")
+}],
+"loop": true,
+"name": &"angry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_w3kmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fy6ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_brpfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rxpib")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_f2sya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4olnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mjhj2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5tqcy")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_s5cmj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_8prjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vthlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_sp2lq")
+}],
+"loop": true,
+"name": &"uwu",
+"speed": 5.0
+}]
+
+[node name="StaticNPC" type="Node2D"]
+script = ExtResource("1_gju8i")
+
+[node name="StaticBody2D" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xhme2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5vmn3")
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("_collisionShape") instance=ExtResource("17_qv8vf")]
+_collisionShape = NodePath("../StaticBody2D/CollisionShape2D")
+_labelOffset = Vector2(0, -20)
+
+[node name="InterestZone" parent="." instance=ExtResource("19_rsjtj")]
+_radius = 100

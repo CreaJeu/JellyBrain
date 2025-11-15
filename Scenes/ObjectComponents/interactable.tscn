@@ -8,6 +8,7 @@ script = ExtResource("1_8sf0s")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="InteractLabel" type="RichTextLabel" parent="."]
+visible = false
 z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
