@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=10 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
 [ext_resource type="Script" uid="uid://cg48ll5sqask4" path="res://Scenes/MainScene/Managers/PauseManager.cs" id="5_hq1ik"]
-[ext_resource type="Script" uid="uid://c145nbeqmh7w4" path="res://Scenes/MainScene/Managers/GameDialogueManager.cs" id="6_nfk4m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66tet"]
 texture = ExtResource("1_8mm7a")
@@ -247,7 +246,7 @@ tile_map_data = PackedByteArray("AAAqACkAAAAEAAIAAAApACkAAAAEAAIAAAAoACkAAAAIAAI
 tile_set = SubResource("TileSet_7ycvg")
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-position = Vector2(584, 312)
+position = Vector2(593, 420)
 script = ExtResource("2_d5x1h")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -268,9 +267,6 @@ process_mode = 3
 script = ExtResource("5_hq1ik")
 PauseMenu = NodePath("../../CanvasLayer/PauseMenu")
 DarkenBackground = NodePath("../../CanvasLayer/DarkenBackgroundRect")
-
-[node name="GameDialogueManager" type="Node" parent="Managers"]
-script = ExtResource("6_nfk4m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -293,5 +289,3 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Dialogue" type="Node2D" parent="."]

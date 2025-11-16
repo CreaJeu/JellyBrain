@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg3eqsk2e8qan"]
+
+[ext_resource type="Script" uid="uid://c38xni8ocm3n3" path="res://Scenes/Components/SimpleMovementComponent.cs" id="1_2hvde"]
+
+[node name="SimpleMovementComponent" type="Node2D"]
+script = ExtResource("1_2hvde")
+
+[node name="RayCastRightWall" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+
+[node name="RayCastLeftWall" type="RayCast2D" parent="."]
+target_position = Vector2(-30, 0)
+
+[node name="RayCastLeftLedge" type="RayCast2D" parent="."]
+target_position = Vector2(-30, 15)
+
+[node name="RayCastRightLedge" type="RayCast2D" parent="."]
+target_position = Vector2(30, 15)

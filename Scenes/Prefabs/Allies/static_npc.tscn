@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4b18tcjulk1s"]
+[gd_scene load_steps=23 format=3 uid="uid://c4b18tcjulk1s"]
 
 [ext_resource type="Texture2D" uid="uid://bpy361creh2ck" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_angry1.png" id="1_1utk5"]
 [ext_resource type="Script" uid="uid://dibfm6ye0u7p4" path="res://Scenes/Prefabs/Allies/StaticNpc.cs" id="1_gju8i"]
@@ -17,8 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://bv00v14mwp7e4" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth2.png" id="14_8prjs"]
 [ext_resource type="Texture2D" uid="uid://crp8ermjd7jmg" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth3.png" id="15_vthlq"]
 [ext_resource type="Texture2D" uid="uid://cccg1lsw83snx" path="res://Assets/Sprites/Allies/clown_fish/clown_fish_kawiiMouth4.png" id="16_sp2lq"]
-[ext_resource type="PackedScene" uid="uid://d0ebt5xr1as7e" path="res://Scenes/ObjectComponents/interactable.tscn" id="17_qv8vf"]
+[ext_resource type="PackedScene" uid="uid://d0ebt5xr1as7e" path="res://Scenes/Components/interactable.tscn" id="17_qv8vf"]
 [ext_resource type="PackedScene" uid="uid://7k4l8ffis058" path="res://Scenes/Components/interest_zone.tscn" id="19_rsjtj"]
+[ext_resource type="PackedScene" uid="uid://cg3eqsk2e8qan" path="res://Scenes/Components/SimpleMovementComponent.tscn" id="20_umrhj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xhme2"]
 radius = 19.0
@@ -114,4 +115,8 @@ _collisionShape = NodePath("../StaticBody2D/CollisionShape2D")
 _labelOffset = Vector2(0, -20)
 
 [node name="InterestZone" parent="." instance=ExtResource("19_rsjtj")]
-_radius = 100
+_radius = 70
+
+[node name="SimpleMovementComponent" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("20_umrhj")]
+_speed = 10.0
+_owner = NodePath("..")
