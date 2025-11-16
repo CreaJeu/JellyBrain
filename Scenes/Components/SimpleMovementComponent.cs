@@ -1,11 +1,13 @@
 using Godot;
-using System;
 using JellyBrain.Scripts.Utils;
+
+namespace JellyBrain.Scenes.Components;
 
 public partial class SimpleMovementComponent : Node2D
 {
 	[Export] private float _speed;
 	[Export] private Node2D _owner;
+	[Export] private Vector2 _raycastOffset; // offset center point of raycast
 	
 	private bool _paused;
 	private Direction _direction = Direction.Left;
@@ -25,6 +27,11 @@ public partial class SimpleMovementComponent : Node2D
 		_rayLedgeLeft = GetNode<RayCast2D>("RayCastLeftLedge");
 		_rayWallRight = GetNode<RayCast2D>("RayCastRightWall");
 		_rayLedgeRight = GetNode<RayCast2D>("RayCastRightLedge");
+		
+		_rayWallLeft.Position += _raycastOffset;
+		_rayLedgeLeft.Position += _raycastOffset;
+		_rayWallRight.Position += _raycastOffset;
+		_rayLedgeRight.Position += _raycastOffset;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -39,12 +46,12 @@ public partial class SimpleMovementComponent : Node2D
 	{
 		if (_direction == Direction.Right)
 		{
-			if (_rayWallRight.IsColliding() || !_rayLedgeRight.IsColliding())
+			if (_rayHitsSolid(_rayWallRight) || !_rayLedgeRight.IsColliding())
 				SetDirection(Direction.Left);
 		}
 		else
 		{
-			if (_rayWallLeft.IsColliding() || !_rayLedgeLeft.IsColliding())
+			if (_rayHitsSolid(_rayWallLeft) || !_rayLedgeLeft.IsColliding())
 				SetDirection(Direction.Right);
 		}
 	}
@@ -52,6 +59,16 @@ public partial class SimpleMovementComponent : Node2D
 	private void MoveOwner(double delta)
 	{
 		_owner.Position += new Vector2((int)_direction * _speed * (float)delta, 0);
+	}
+	
+	// Don't consider player as wall
+	private static bool _rayHitsSolid(RayCast2D ray)
+	{
+		var collider = ray.GetCollider();
+		if (collider == null)
+			return false;
+		
+		return collider is not CharacterBody2D; // TODO: replace CharacterBody2D by player class
 	}
 
 	public void SetDirection(Direction direction)

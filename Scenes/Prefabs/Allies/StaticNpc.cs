@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using JellyBrain.Scenes.Components;
 using JellyBrain.Scripts.Utils;
 
 public partial class StaticNpc : Node2D
@@ -7,7 +8,7 @@ public partial class StaticNpc : Node2D
 	private AnimatedSprite2D _sprite;
 	private Node2D _player;
 	private Direction _playerDirection; // On which side is player located
-	private SimpleMovementComponent _movementComponent;
+	private JellyBrain.Scenes.Components.SimpleMovementComponent _movementComponent;
 	
 	public override void _Ready()
 	{
@@ -15,7 +16,7 @@ public partial class StaticNpc : Node2D
 		interactable.InteractedWith += _onInteract;
 		
 		_movementComponent = GetNode<SimpleMovementComponent>("SimpleMovementComponent");
-		_movementComponent.ChangedDirection += _changeDirection;
+		_movementComponent.ChangedDirection += _changeFacingDirection;
 		_movementComponent.StoppedMoving += _onMovementPaused;
 		_movementComponent.StartedMoving += _onMovementResumed;
 
@@ -33,7 +34,7 @@ public partial class StaticNpc : Node2D
 		
 		// Face player when within interest zone
 		_playerDirection = _player.Position.X > GlobalPosition.X ? Direction.Right : Direction.Left;
-		_changeDirection(_playerDirection);
+		_changeFacingDirection(_playerDirection);
 	}
 	
 	private void _onInteract()
@@ -48,7 +49,7 @@ public partial class StaticNpc : Node2D
 		_sprite.Animation = "angry";
 		_sprite.Play();
 		_playerDirection = _player.Position.X > GlobalPosition.X ? Direction.Right : Direction.Left;
-		_changeDirection(_playerDirection);
+		_changeFacingDirection(_playerDirection);
 		_movementComponent.PauseMovement();
 	}
 
@@ -66,7 +67,7 @@ public partial class StaticNpc : Node2D
 	}
 
 	// ------ Movement
-	private void _changeDirection(Direction newDirection)
+	private void _changeFacingDirection(Direction newDirection)
 	{
 		_sprite.FlipH = newDirection == Direction.Right;
 	}
@@ -77,7 +78,7 @@ public partial class StaticNpc : Node2D
 
 	private void _onMovementResumed()
 	{
-		_changeDirection(_movementComponent.GetDirection());
+		_changeFacingDirection(_movementComponent.GetDirection());
 	}
 
 }

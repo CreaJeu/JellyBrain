@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://jquqglmv6ajc"]
+[gd_scene load_steps=12 format=3 uid="uid://jquqglmv6ajc"]
 
 [ext_resource type="Texture2D" uid="uid://c8d1253xyyhga" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing5.png" id="1_j2usk"]
+[ext_resource type="Script" uid="uid://7eqotjgeevc4" path="res://Scenes/Prefabs/Enemies/Palourde.cs" id="1_m0vev"]
 [ext_resource type="Texture2D" uid="uid://bgsj5u2v3modp" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing1.png" id="2_hhwlb"]
 [ext_resource type="Texture2D" uid="uid://cmhokoqp0xrfq" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing2.png" id="3_mvutu"]
 [ext_resource type="Texture2D" uid="uid://go0r5j8lngcp" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing3.png" id="4_m0vev"]
 [ext_resource type="Texture2D" uid="uid://dvvqocjy2woft" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing4.png" id="5_06jrx"]
 [ext_resource type="PackedScene" uid="uid://cja5dec8nv3yd" path="res://Scenes/Components/HealthComponent.tscn" id="6_mvutu"]
-[ext_resource type="PackedScene" uid="uid://cfe4gcspakj1b" path="res://Scenes/Components/DamageComponent.tscn" id="7_m0vev"]
+[ext_resource type="PackedScene" uid="uid://cg3eqsk2e8qan" path="res://Scenes/Components/SimpleMovementComponent.tscn" id="8_m0vev"]
+[ext_resource type="PackedScene" uid="uid://7k4l8ffis058" path="res://Scenes/Components/interest_zone.tscn" id="9_06jrx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q50l0"]
 animations = [{
@@ -16,6 +18,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j2usk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_j2usk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_j2usk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_06jrx")
+}],
+"loop": true,
+"name": &"movement",
 "speed": 5.0
 }, {
 "frames": [{
@@ -33,18 +52,45 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("1_j2usk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_06jrx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_m0vev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mvutu")
 }],
 "loop": true,
 "name": &"palourdeClosing",
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvutu"]
+size = Vector2(53, 27.5)
+
 [node name="Palourde" type="Node2D"]
+script = ExtResource("1_m0vev")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q50l0")
-animation = &"palourdeClosing"
+animation = &"movement"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4.5, 8.75)
+shape = SubResource("RectangleShape2D_mvutu")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_mvutu")]
 
-[node name="DamageComponent" parent="." instance=ExtResource("7_m0vev")]
+[node name="SimpleMovementComponent" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("8_m0vev")]
+_speed = 10.0
+_owner = NodePath("..")
+_raycastOffset = Vector2(0, 15)
+
+[node name="InterestZone" parent="." instance=ExtResource("9_06jrx")]
+_radius = 50

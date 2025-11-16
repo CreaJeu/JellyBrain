@@ -99,11 +99,11 @@ animations = [{
 [node name="StaticNPC" type="Node2D"]
 script = ExtResource("1_gju8i")
 
-[node name="StaticBody2D" type="RigidBody2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_xhme2")
 
@@ -111,7 +111,7 @@ shape = SubResource("CapsuleShape2D_xhme2")
 sprite_frames = SubResource("SpriteFrames_5vmn3")
 
 [node name="Interactable" parent="." node_paths=PackedStringArray("_collisionShape") instance=ExtResource("17_qv8vf")]
-_collisionShape = NodePath("../StaticBody2D/CollisionShape2D")
+_collisionShape = NodePath("../Area2D/CollisionShape2D")
 _labelOffset = Vector2(0, -20)
 
 [node name="InterestZone" parent="." instance=ExtResource("19_rsjtj")]
