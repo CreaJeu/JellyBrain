@@ -17,6 +17,18 @@ public partial class Player: CharacterBody2D
 	[Export]
 	public float climbVelocity { get; set; } = 40.0f;
 	
+	private HealthComponent healthComponent;
+	private Sprite2D _sprite;
+
+	public override void _Ready()
+	{
+		_sprite = GetNode<Sprite2D>("Sprite2D");
+		
+		healthComponent = GetNode<HealthComponent>("HealthComponent");
+		healthComponent.HealthBelowZero += _onBelowZeroHealth;
+		healthComponent.HealthChanged += _onHealthChanged;
+	}
+	
 	public override void _Process(double delta) {
 		var velocity = Velocity;
 		
@@ -55,4 +67,21 @@ public partial class Player: CharacterBody2D
 		var motion = Velocity * (float)delta;
 		MoveAndSlide();
 	}
+
+	private void _onBelowZeroHealth(int newHealth)
+	{
+		GD.Print("Yer DEAD!");
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(_sprite, "modulate", Colors.Red, 1.0f);
+
+	}
+	
+	private void _onHealthChanged(int oldHealth, int newHealth)
+	{
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(_sprite, "modulate", Colors.White, 1.0f);
+		GD.Print($"oldHealth: {oldHealth}, newHealth: {newHealth}");
+		
+	}
+
 }

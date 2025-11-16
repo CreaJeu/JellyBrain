@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc8w4xu4mvaun"]
+
+[ext_resource type="Script" uid="uid://bfavgttemx53u" path="res://Scenes/Components/ContactHitComponent.cs" id="1_bd8h6"]
+
+[node name="ContactHitComponent" type="Area2D"]
+script = ExtResource("1_bd8h6")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jquqglmv6ajc"]
+[gd_scene load_steps=13 format=3 uid="uid://jquqglmv6ajc"]
 
 [ext_resource type="Texture2D" uid="uid://c8d1253xyyhga" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing5.png" id="1_j2usk"]
 [ext_resource type="Script" uid="uid://7eqotjgeevc4" path="res://Scenes/Prefabs/Enemies/Palourde.cs" id="1_m0vev"]
@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cmhokoqp0xrfq" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing2.png" id="3_mvutu"]
 [ext_resource type="Texture2D" uid="uid://go0r5j8lngcp" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing3.png" id="4_m0vev"]
 [ext_resource type="Texture2D" uid="uid://dvvqocjy2woft" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing4.png" id="5_06jrx"]
-[ext_resource type="PackedScene" uid="uid://cja5dec8nv3yd" path="res://Scenes/Components/HealthComponent.tscn" id="6_mvutu"]
 [ext_resource type="PackedScene" uid="uid://cg3eqsk2e8qan" path="res://Scenes/Components/SimpleMovementComponent.tscn" id="8_m0vev"]
 [ext_resource type="PackedScene" uid="uid://7k4l8ffis058" path="res://Scenes/Components/interest_zone.tscn" id="9_06jrx"]
+[ext_resource type="PackedScene" uid="uid://cc8w4xu4mvaun" path="res://Scenes/Components/ContactHitComponent.tscn" id="10_68tb5"]
+[ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="11_3ognb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q50l0"]
 animations = [{
@@ -75,7 +76,7 @@ script = ExtResource("1_m0vev")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q50l0")
-animation = &"movement"
+animation = &"palourdeClosing"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -85,8 +86,6 @@ collision_mask = 0
 position = Vector2(4.5, 8.75)
 shape = SubResource("RectangleShape2D_mvutu")
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_mvutu")]
-
 [node name="SimpleMovementComponent" parent="." node_paths=PackedStringArray("_owner") instance=ExtResource("8_m0vev")]
 _speed = 10.0
 _owner = NodePath("..")
@@ -94,3 +93,8 @@ _raycastOffset = Vector2(0, 15)
 
 [node name="InterestZone" parent="." instance=ExtResource("9_06jrx")]
 _radius = 50
+
+[node name="ContactHitComponent" parent="." node_paths=PackedStringArray("_hitbox") instance=ExtResource("10_68tb5")]
+_hitbox = NodePath("../Area2D/CollisionShape2D")
+
+[node name="HealthComponent" parent="." instance=ExtResource("11_3ognb")]

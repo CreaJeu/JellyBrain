@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=12 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
 [ext_resource type="Texture2D" uid="uid://de1g52yab56kc" path="res://icon.svg" id="2_2c62f"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
+[ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="5_66tet"]
 [ext_resource type="Script" uid="uid://cg48ll5sqask4" path="res://Scenes/MainScene/Managers/PauseManager.cs" id="5_hq1ik"]
 [ext_resource type="PackedScene" uid="uid://jquqglmv6ajc" path="res://Scenes/Prefabs/Enemies/Palourde.tscn" id="7_nfk4m"]
 
@@ -237,7 +238,7 @@ size = Vector2(14, 14)
 
 [node name="MainScene" type="Node2D"]
 
-[node name="StaticNPC" parent="." instance=ExtResource("1_7ycvg")]
+[node name="StaticNPC" parent="." groups=["allies"] instance=ExtResource("1_7ycvg")]
 position = Vector2(378, 643)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -260,6 +261,8 @@ shape = SubResource("RectangleShape2D_8mm7a")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
 position_smoothing_speed = 25.0
+
+[node name="HealthComponent" parent="Player" instance=ExtResource("5_66tet")]
 
 [node name="Managers" type="Node" parent="."]
 
@@ -291,5 +294,5 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Palourde" parent="." instance=ExtResource("7_nfk4m")]
+[node name="Palourde" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
 position = Vector2(699, 551)

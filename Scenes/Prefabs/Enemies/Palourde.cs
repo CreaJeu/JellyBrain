@@ -64,5 +64,4 @@ public partial class Palourde : Node2D
 	{
 		_sprite.FlipH = newDirection == Direction.Right;
 	}
-
 }
