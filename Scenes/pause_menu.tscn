@@ -58,6 +58,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Resume"
 
+[node name="RestartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Restart
+"
+
 [node name="SettingsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20

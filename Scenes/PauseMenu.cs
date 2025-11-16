@@ -6,27 +6,32 @@ public partial class PauseMenu : Control
 	[Signal]
 	public delegate void ResumeGameEventHandler();
 	
-	private Button _exitButton;
-	private Button _resumeButton;
-	private Button _settingsButton;
-	
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_exitButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/ExitButton");
-		_exitButton.Pressed += _onExitButtonPressed;
+		var exitButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/ExitButton");
+		exitButton.Pressed += _onExitButtonPressed;
 		
-		_resumeButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/ResumeButton");
-		_resumeButton.Pressed += _onResumeButtonPressed;
+		var resumeButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/ResumeButton");
+		resumeButton.Pressed += _onResumeButtonPressed;
 		
-		_settingsButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/SettingsButton");
-		_settingsButton.Pressed += _onSettingsButtonPressed;
+		var settingsButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/SettingsButton");
+		settingsButton.Pressed += _onSettingsButtonPressed;
+		
+		var restartButton = GetNode<Button>("PanelContainer/MarginContainer/VBoxContainer/RestartButton");
+		restartButton.Pressed += _onRestartButtonPressed;
+
 	}
 
 	private void _onExitButtonPressed()
 	{
 		GetTree().Quit();
 	}
+	
+	private void _onRestartButtonPressed()
+	{
+		GetTree().ChangeSceneToFile("res://main_scene.tscn");
+	}
+
 
 	private void _onResumeButtonPressed()
 	{
