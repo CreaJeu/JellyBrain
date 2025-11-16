@@ -228,14 +228,15 @@ texture = ExtResource("1_8mm7a")
 9:6/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSet" id="TileSet_7ycvg"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
 sources/0 = SubResource("TileSetAtlasSource_66tet")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
-size = Vector2(14, 14)
+size = Vector2(14, 15)
 
 [node name="MainScene" type="Node2D"]
 
@@ -256,10 +257,11 @@ position = Vector2(591, 421)
 script = ExtResource("2_d5x1h")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.117187805, 0.117187805)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_2c62f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_8mm7a")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
