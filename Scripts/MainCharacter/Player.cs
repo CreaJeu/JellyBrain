@@ -18,11 +18,12 @@ public partial class Player: CharacterBody2D
 	public float climbVelocity { get; set; } = 40.0f;
 	
 	private HealthComponent healthComponent;
-	private Sprite2D _sprite;
+	private AnimatedSprite2D _sprite;
 
 	public override void _Ready()
-	{
-		_sprite = GetNode<Sprite2D>("Sprite2D");
+	{	
+		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		_sprite.Play("default");
 		
 		healthComponent = GetNode<HealthComponent>("HealthComponent");
 		healthComponent.HealthBelowZero += _onBelowZeroHealth;

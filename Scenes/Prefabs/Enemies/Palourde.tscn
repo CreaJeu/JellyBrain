@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://jquqglmv6ajc"]
+[gd_scene load_steps=16 format=3 uid="uid://jquqglmv6ajc"]
 
 [ext_resource type="Texture2D" uid="uid://c8d1253xyyhga" path="res://Assets/Sprites/Enemies/Palourde/palourde_closing5.png" id="1_j2usk"]
 [ext_resource type="Script" uid="uid://7eqotjgeevc4" path="res://Scenes/Prefabs/Enemies/Palourde.cs" id="1_m0vev"]
@@ -10,6 +10,63 @@
 [ext_resource type="PackedScene" uid="uid://7k4l8ffis058" path="res://Scenes/Components/interest_zone.tscn" id="9_06jrx"]
 [ext_resource type="PackedScene" uid="uid://cc8w4xu4mvaun" path="res://Scenes/Components/ContactHitComponent.tscn" id="10_68tb5"]
 [ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="11_3ognb"]
+
+[sub_resource type="Animation" id="Animation_68tb5"]
+resource_name = "Jump"
+step = 0.0333333
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2),
+"points": PackedFloat32Array(0, -0.24890853, 2.333517, 0.26666668, -2.5, 107, -0.085, -17.833334, 0, 0, 198, -0.08166667, -15.166667, 0, 0),
+"times": PackedFloat32Array(0, 0.51, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -65.5, -0.085, 11.666666, 0, 0, -18, -0.08166667, -8.666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
+[sub_resource type="Animation" id="Animation_3ognb"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n3432"]
+_data = {
+&"Jump": SubResource("Animation_68tb5"),
+&"RESET": SubResource("Animation_3ognb")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q50l0"]
 animations = [{
@@ -73,10 +130,16 @@ size = Vector2(53, 27.5)
 
 [node name="Palourde" type="Node2D"]
 script = ExtResource("1_m0vev")
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_n3432")
+}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_q50l0")
-animation = &"palourdeClosing"
+animation = &"movement"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

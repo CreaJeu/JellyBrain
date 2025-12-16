@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=18 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
-[ext_resource type="Texture2D" uid="uid://de1g52yab56kc" path="res://icon.svg" id="2_2c62f"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://bqh356hexede1" path="res://Scenes/Prefabs/Enemies/sticky_enemy.tscn" id="3_7ycvg"]
-[ext_resource type="PackedScene" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
+[ext_resource type="Texture2D" uid="uid://cpaa81etm26r7" path="res://medusa-Sheet.png" id="5_7ycvg"]
+[ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
 [ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="5_66tet"]
 [ext_resource type="Script" uid="uid://cg48ll5sqask4" path="res://Scenes/MainScene/Managers/PauseManager.cs" id="5_hq1ik"]
 [ext_resource type="PackedScene" uid="uid://jquqglmv6ajc" path="res://Scenes/Prefabs/Enemies/Palourde.tscn" id="7_nfk4m"]
@@ -251,8 +251,44 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(1, 1, 1, 1)
 sources/0 = SubResource("TileSetAtlasSource_66tet")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr18j"]
+atlas = ExtResource("5_7ycvg")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwutr"]
+atlas = ExtResource("5_7ycvg")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_671wp"]
+atlas = ExtResource("5_7ycvg")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo76n"]
+atlas = ExtResource("5_7ycvg")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42l1d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr18j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwutr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_671wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo76n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
-size = Vector2(14, 15)
+size = Vector2(18, 29)
 
 [node name="MainScene" type="Node2D"]
 
@@ -269,15 +305,17 @@ tile_map_data = PackedByteArray("AAAqACkAAAAEAAIAAAApACkAAAAEAAIAAAAoACkAAAAIAAI
 tile_set = SubResource("TileSet_7ycvg")
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-position = Vector2(591, 421)
+position = Vector2(585, 421)
 script = ExtResource("2_d5x1h")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("2_2c62f")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-47, 0)
+sprite_frames = SubResource("SpriteFrames_42l1d")
+frame = 3
+frame_progress = 0.29947296
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 0.5)
+position = Vector2(-47, 5.5)
 shape = SubResource("RectangleShape2D_8mm7a")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -317,4 +355,3 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Palourde" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
-position = Vector2(699, 551)

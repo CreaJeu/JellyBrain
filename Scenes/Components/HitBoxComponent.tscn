@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cja5dec8nv3yd"]
+[gd_scene load_steps=2 format=3 uid="uid://cel1gdcjubekl"]
 
 [ext_resource type="Script" uid="uid://p5gvf1ucfn6d" path="res://Scenes/Components/HitBoxComponent.cs" id="1_tubr4"]
 
