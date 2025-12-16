@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://2ubi3htuoya1"]
+
+[ext_resource type="Script" uid="uid://c808x1dggv4xq" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
+
+[node name="PlayerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mxnli")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
+layout_mode = 0
+offset_left = 42.0
+offset_right = 72.0
+offset_bottom = 30.0
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
+layout_mode = 0
+offset_left = 84.0
+offset_right = 114.0
+offset_bottom = 30.0
+color = Color(1, 0, 0, 1)

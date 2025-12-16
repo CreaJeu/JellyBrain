@@ -32,6 +32,7 @@ public partial class Palourde : Node2D
 		_updatePlayerDirection();
 		_changeFacingDirection(_playerDirection);
 		_movementComponent.SetDirection(_playerDirection);
+		GD.Print("  OUI LA PALOURDE EXISTE AU SECOUR");
 	}
 
 	private void _onInterestZoneEntered(Node2D body)
