@@ -1,9 +1,14 @@
-[gd_scene load_steps=19 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=24 format=4 uid="uid://i44v8fahfs2s"]
 
+[ext_resource type="Texture2D" uid="uid://x2sl5bgb4rda" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
+[ext_resource type="Texture2D" uid="uid://bvqiuohp6fa14" path="res://Assets/Sprites/yvanPixelArt/background/background2.png" id="2_m35m6"]
 [ext_resource type="PackedScene" uid="uid://bqh356hexede1" path="res://Scenes/Prefabs/Enemies/sticky_enemy.tscn" id="3_7ycvg"]
+[ext_resource type="Texture2D" uid="uid://o2yv6ifq5qaa" path="res://Assets/Sprites/yvanPixelArt/background/background3.png" id="3_u0ygc"]
+[ext_resource type="Texture2D" uid="uid://boogk181xda7g" path="res://Assets/Sprites/yvanPixelArt/background/background4.png" id="4_7th4q"]
+[ext_resource type="Texture2D" uid="uid://cnn0n54438nx1" path="res://Assets/Sprites/yvanPixelArt/background/background5.png" id="5_6jybn"]
 [ext_resource type="Texture2D" uid="uid://cpaa81etm26r7" path="res://medusa-Sheet.png" id="5_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
 [ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="5_66tet"]
@@ -292,6 +297,48 @@ animations = [{
 size = Vector2(18, 29)
 
 [node name="MainScene" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(536, 567)
+metadata/_edit_group_ = true
+
+[node name="Parallax2D" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
+texture = ExtResource("1_2jcla")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D2"]
+texture = ExtResource("2_m35m6")
+
+[node name="Parallax2D3" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 1)
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D3"]
+texture = ExtResource("3_u0ygc")
+
+[node name="Parallax2D4" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 1)
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D4"]
+texture = ExtResource("4_7th4q")
+
+[node name="Parallax2D5" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.5, 1)
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D5"]
+texture = ExtResource("5_6jybn")
 
 [node name="StickyEnemy" parent="." instance=ExtResource("3_7ycvg")]
 position = Vector2(407, 502)

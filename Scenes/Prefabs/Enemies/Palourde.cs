@@ -22,17 +22,25 @@ public partial class Palourde : Node2D
 		var interestZone = GetNode<InterestZone>("InterestZone");
 		interestZone.InterestedZoneEntered += _onInterestZoneEntered;
 		interestZone.InterestedZoneExited += _onInterestZoneExited;
+		GD.Print("  OUI LA PALOURDE EXISTE AU SECOUR");
+		GD.Print(Position.X +"  "+ Position.Y);
+
 	}
 
 	public override void _Process(double delta)
 	{
-		if (!_playerInInterestZone()) return;
-		
-		// Face player when within interest zone
-		_updatePlayerDirection();
-		_changeFacingDirection(_playerDirection);
-		_movementComponent.SetDirection(_playerDirection);
 		GD.Print("  OUI LA PALOURDE EXISTE AU SECOUR");
+		GD.Print(Position.X +"  "+ Position.Y);
+		
+		if (_playerInInterestZone())
+		{
+			// Face player when within interest zone
+			_updatePlayerDirection();
+			_changeFacingDirection(_playerDirection);
+			_movementComponent.SetDirection(_playerDirection);
+		}
+		
+
 	}
 
 	private void _onInterestZoneEntered(Node2D body)
