@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bp37abq1k6kes"]
+
+[ext_resource type="Shader" uid="uid://vnw8bcm2c2b8" path="res://Assets/Shaders/water_shader_background.gdshader" id="1_vkjqj"]
+
+[resource]
+shader = ExtResource("1_vkjqj")
+shader_parameter/line_color = Color(1, 1, 1, 0.42352942)
+shader_parameter/deep_water_color = Color(0, 0.05, 0.1, 1)
+shader_parameter/pixel_size = 4.000000142499999
+shader_parameter/wave_speed = 0.050000002375
+shader_parameter/base_scale = 12.3450005388875
+shader_parameter/line_sharpness = 0.0
+shader_parameter/top_fade = -0.0549999551125
+shader_parameter/bottom_fade = 0.81200003857
+shader_parameter/bg_darkness = 0.50000002375
+shader_parameter/scroll_offset = Vector2(0, 0)

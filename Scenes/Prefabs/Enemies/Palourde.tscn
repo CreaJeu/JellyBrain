@@ -130,7 +130,6 @@ size = Vector2(53, 27.5)
 
 [node name="Palourde" type="Node2D"]
 script = ExtResource("1_m0vev")
-metadata/_edit_group_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

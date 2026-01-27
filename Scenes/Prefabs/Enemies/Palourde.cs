@@ -11,6 +11,7 @@ public partial class Palourde : Node2D
 	
 	public override void _Ready()
 	{
+		
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_sprite.Animation = "movement";
 		_sprite.Play();
@@ -22,15 +23,22 @@ public partial class Palourde : Node2D
 		var interestZone = GetNode<InterestZone>("InterestZone");
 		interestZone.InterestedZoneEntered += _onInterestZoneEntered;
 		interestZone.InterestedZoneExited += _onInterestZoneExited;
-		GD.Print("  OUI LA PALOURDE EXISTE AU SECOUR");
-		GD.Print(Position.X +"  "+ Position.Y);
+		
+		if (_movementComponent == null)
+		{
+			GD.PrintErr("Erreur : _movementComponent est null !");
+			return;
+		}
+		if (_sprite == null)
+		{
+			GD.PrintErr("Erreur : _sprite est null !");
+			return;
+		}
 
 	}
 
 	public override void _Process(double delta)
 	{
-		GD.Print("  OUI LA PALOURDE EXISTE AU SECOUR");
-		GD.Print(Position.X +"  "+ Position.Y);
 		
 		if (_playerInInterestZone())
 		{
@@ -46,8 +54,8 @@ public partial class Palourde : Node2D
 	private void _onInterestZoneEntered(Node2D body)
 	{
 		_player = body;
-		_sprite.Animation = "palourdeClosing";
-		_sprite.Play();
+		// _sprite.Animation = "palourdeClosing";
+		// _sprite.Play();
 		_updatePlayerDirection();
 		_movementComponent.SetDirection(_playerDirection);
 	}
@@ -55,8 +63,8 @@ public partial class Palourde : Node2D
 	private void _onInterestZoneExited()
 	{
 		_player = null;
-		_sprite.Animation = "movement";
-		_sprite.Play();
+		// _sprite.Animation = "movement";
+		// _sprite.Play();
 	}
 	
 	private bool _playerInInterestZone()

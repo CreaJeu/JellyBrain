@@ -27,6 +27,7 @@ public partial class InterestZone : Area2D
 
 	private void _onBodyExited(Node2D body)
 	{
+		GD.Print("Joueur sorti de la zone - Position avant réinitialisation : " + Position);
 		if (!body.IsInGroup("player")) return;
 		EmitSignalInterestedZoneExited();
 	}

@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=28 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://x2sl5bgb4rda" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
+[ext_resource type="Material" uid="uid://bp37abq1k6kes" path="res://Assets/Shaders/watershader material.tres" id="1_7th4q"]
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
@@ -13,7 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
 [ext_resource type="PackedScene" uid="uid://b578p482qcl5l" path="res://Scenes/Components/HealthComponent.tscn" id="5_66tet"]
 [ext_resource type="Script" uid="uid://cg48ll5sqask4" path="res://Scenes/MainScene/Managers/PauseManager.cs" id="5_hq1ik"]
+[ext_resource type="Texture2D" uid="uid://big3dssj14ojr" path="res://Assets/Particles/bubble3.png" id="6_m35m6"]
 [ext_resource type="PackedScene" uid="uid://jquqglmv6ajc" path="res://Scenes/Prefabs/Enemies/Palourde.tscn" id="7_nfk4m"]
+[ext_resource type="Texture2D" uid="uid://dj4msipg5hvb4" path="res://Assets/Particles/bubble5x5.png" id="7_u0ygc"]
 [ext_resource type="PackedScene" uid="uid://2ubi3htuoya1" path="res://Scenes/TestInterface/PlayerHUD.tscn" id="7_wr18j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66tet"]
@@ -296,10 +299,19 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
 size = Vector2(18, 29)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u0ygc"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(9.8, 193.265, 1)
+spread = 0.0
+initial_velocity_min = 47.62
+initial_velocity_max = 68.81
+gravity = Vector3(0, 0, 0)
+
 [node name="MainScene" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
-position = Vector2(536, 567)
+position = Vector2(538, 567)
 metadata/_edit_group_ = true
 
 [node name="Parallax2D" type="Parallax2D" parent="Background"]
@@ -307,6 +319,7 @@ repeat_size = Vector2(640, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
+material = ExtResource("1_7th4q")
 texture = ExtResource("1_2jcla")
 
 [node name="Parallax2D2" type="Parallax2D" parent="Background"]
@@ -314,6 +327,7 @@ repeat_size = Vector2(640, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D2"]
+material = ExtResource("1_7th4q")
 texture = ExtResource("2_m35m6")
 
 [node name="Parallax2D3" type="Parallax2D" parent="Background"]
@@ -380,6 +394,28 @@ grow_horizontal = 1
 grow_vertical = 1
 healthComponent = NodePath("../HealthComponent")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player"]
+position = Vector2(-384, 5)
+emitting = false
+amount = 150
+texture = ExtResource("6_m35m6")
+lifetime = 17.040000000000003
+preprocess = 10.0
+randomness = 0.59
+visibility_rect = Rect2(-100, -100, 800, 500)
+process_material = SubResource("ParticleProcessMaterial_u0ygc")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Player"]
+position = Vector2(-384, 5)
+emitting = false
+amount = 50
+texture = ExtResource("7_u0ygc")
+lifetime = 17.040000000000003
+preprocess = 10.0
+randomness = 0.59
+visibility_rect = Rect2(-100, -100, 800, 500)
+process_material = SubResource("ParticleProcessMaterial_u0ygc")
+
 [node name="Managers" type="Node" parent="."]
 
 [node name="PauseManager" type="Node" parent="Managers" node_paths=PackedStringArray("PauseMenu", "DarkenBackground")]
@@ -411,7 +447,3 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Palourde" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
-
-[node name="Palourde2" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
-
-[node name="Palourde3" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
