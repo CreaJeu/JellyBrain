@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://x2sl5bgb4rda" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
-[ext_resource type="Material" uid="uid://bp37abq1k6kes" path="res://Assets/Shaders/watershader material.tres" id="1_7th4q"]
+[ext_resource type="Material" uid="uid://dhks2n3gkpg7l" path="res://Assets/Shaders/watershader material3.tres" id="1_7th4q"]
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
