@@ -1,14 +1,16 @@
-[gd_scene load_steps=28 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=33 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://x2sl5bgb4rda" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
 [ext_resource type="Material" uid="uid://dhks2n3gkpg7l" path="res://Assets/Shaders/watershader material3.tres" id="1_7th4q"]
 [ext_resource type="PackedScene" uid="uid://c4b18tcjulk1s" path="res://Scenes/Prefabs/Allies/static_npc.tscn" id="1_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://crbvvxd0ryls5" path="res://Assets/Tileset/tileset_test.png" id="1_8mm7a"]
+[ext_resource type="Shader" uid="uid://k5wbejwrakxq" path="res://Assets/Shaders/blue_filter.gdshader" id="1_vimvf"]
 [ext_resource type="Script" uid="uid://b0ehfvnbkfxls" path="res://Scripts/MainCharacter/Player.cs" id="2_d5x1h"]
-[ext_resource type="Texture2D" uid="uid://bvqiuohp6fa14" path="res://Assets/Sprites/yvanPixelArt/background/background2.png" id="2_m35m6"]
+[ext_resource type="Texture2D" uid="uid://chvmuwtgklutm" path="res://Assets/Sprites/yvanPixelArt/background/backgroundground2.png" id="3_6jybn"]
 [ext_resource type="PackedScene" uid="uid://bqh356hexede1" path="res://Scenes/Prefabs/Enemies/sticky_enemy.tscn" id="3_7ycvg"]
 [ext_resource type="Texture2D" uid="uid://o2yv6ifq5qaa" path="res://Assets/Sprites/yvanPixelArt/background/background3.png" id="3_u0ygc"]
 [ext_resource type="Texture2D" uid="uid://boogk181xda7g" path="res://Assets/Sprites/yvanPixelArt/background/background4.png" id="4_7th4q"]
+[ext_resource type="Texture2D" uid="uid://bmv4e3e6fxvmw" path="res://Assets/Sprites/yvanPixelArt/background/backgroundground1.png" id="4_84odl"]
 [ext_resource type="Texture2D" uid="uid://cnn0n54438nx1" path="res://Assets/Sprites/yvanPixelArt/background/background5.png" id="5_6jybn"]
 [ext_resource type="Texture2D" uid="uid://cpaa81etm26r7" path="res://medusa-Sheet.png" id="5_7ycvg"]
 [ext_resource type="PackedScene" uid="uid://cs4i2w51e1onc" path="res://Scenes/pause_menu.tscn" id="5_8mm7a"]
@@ -18,6 +20,12 @@
 [ext_resource type="PackedScene" uid="uid://jquqglmv6ajc" path="res://Scenes/Prefabs/Enemies/Palourde.tscn" id="7_nfk4m"]
 [ext_resource type="Texture2D" uid="uid://dj4msipg5hvb4" path="res://Assets/Particles/bubble5x5.png" id="7_u0ygc"]
 [ext_resource type="PackedScene" uid="uid://2ubi3htuoya1" path="res://Scenes/TestInterface/PlayerHUD.tscn" id="7_wr18j"]
+[ext_resource type="Material" uid="uid://7co3phtwiifv" path="res://Assets/Particles/Little Bubble Particle.tres" id="16_ak604"]
+[ext_resource type="Material" uid="uid://c5laiy1uakc75" path="res://Assets/Particles/Big Bubble Particle.tres" id="18_vimvf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghshe"]
+shader = ExtResource("1_vimvf")
+shader_parameter/blue_tint = Color(0, 0.4, 0.6, 0.3)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66tet"]
 texture = ExtResource("1_8mm7a")
@@ -299,18 +307,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
 size = Vector2(18, 29)
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u0ygc"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(9.8, 193.265, 1)
-spread = 0.0
-initial_velocity_min = 47.62
-initial_velocity_max = 68.81
-gravity = Vector3(0, 0, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vimvf"]
+shader = ExtResource("1_vimvf")
+shader_parameter/blue_tint = Color(0, 0.39999992, 0.6, 0.54901963)
 
 [node name="MainScene" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_ghshe")
 position = Vector2(538, 567)
 metadata/_edit_group_ = true
 
@@ -322,13 +326,21 @@ repeat_times = 3
 material = ExtResource("1_7th4q")
 texture = ExtResource("1_2jcla")
 
-[node name="Parallax2D2" type="Parallax2D" parent="Background"]
+[node name="Parallax2D7" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.1, 1)
 repeat_size = Vector2(640, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D2"]
-material = ExtResource("1_7th4q")
-texture = ExtResource("2_m35m6")
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D7"]
+texture = ExtResource("3_6jybn")
+
+[node name="Parallax2D6" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.2, 1)
+repeat_size = Vector2(640, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D6"]
+texture = ExtResource("4_84odl")
 
 [node name="Parallax2D3" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.5, 1)
@@ -353,6 +365,39 @@ repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D5"]
 texture = ExtResource("5_6jybn")
+
+[node name="Particles" type="Node2D" parent="Background"]
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Background/Particles"]
+visible = false
+position = Vector2(528, 10)
+amount = 150
+texture = ExtResource("6_m35m6")
+lifetime = 17.040000000000003
+preprocess = 10.0
+randomness = 0.59
+visibility_rect = Rect2(-800, -100, 800, 500)
+process_material = ExtResource("16_ak604")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Background/Particles"]
+position = Vector2(72, 157)
+amount = 150
+texture = ExtResource("6_m35m6")
+lifetime = 17.040000000000003
+preprocess = 10.0
+randomness = 0.59
+visibility_rect = Rect2(-400, -400, 800, 800)
+process_material = ExtResource("16_ak604")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Background/Particles"]
+position = Vector2(72, -11)
+amount = 25
+texture = ExtResource("7_u0ygc")
+lifetime = 17.040000000000003
+preprocess = 10.0
+randomness = 0.59
+visibility_rect = Rect2(-400, -400, 800, 800)
+process_material = ExtResource("18_vimvf")
 
 [node name="StickyEnemy" parent="." instance=ExtResource("3_7ycvg")]
 position = Vector2(407, 502)
@@ -394,27 +439,15 @@ grow_horizontal = 1
 grow_vertical = 1
 healthComponent = NodePath("../HealthComponent")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Player"]
-position = Vector2(-384, 5)
-emitting = false
-amount = 150
-texture = ExtResource("6_m35m6")
-lifetime = 17.040000000000003
-preprocess = 10.0
-randomness = 0.59
-visibility_rect = Rect2(-100, -100, 800, 500)
-process_material = SubResource("ParticleProcessMaterial_u0ygc")
-
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="Player"]
-position = Vector2(-384, 5)
-emitting = false
-amount = 50
-texture = ExtResource("7_u0ygc")
-lifetime = 17.040000000000003
-preprocess = 10.0
-randomness = 0.59
-visibility_rect = Rect2(-100, -100, 800, 500)
-process_material = SubResource("ParticleProcessMaterial_u0ygc")
+[node name="ColorRect" type="ColorRect" parent="Player"]
+material = SubResource("ShaderMaterial_vimvf")
+layout_direction = 1
+offset_left = -160.0
+offset_top = -91.0
+offset_right = 159.0
+offset_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Managers" type="Node" parent="."]
 
