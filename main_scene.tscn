@@ -26,6 +26,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ghshe"]
 shader = ExtResource("1_vimvf")
 shader_parameter/blue_tint = Color(0, 0.4, 0.6, 0.3)
+shader_parameter/light_radius = 0.5
+shader_parameter/light_softness = 0.6
+shader_parameter/center_brightness = 0.2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_66tet"]
 texture = ExtResource("1_8mm7a")
@@ -310,6 +313,9 @@ size = Vector2(18, 29)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vimvf"]
 shader = ExtResource("1_vimvf")
 shader_parameter/blue_tint = Color(0, 0.39999992, 0.6, 0.54901963)
+shader_parameter/light_radius = 0.68
+shader_parameter/light_softness = 0.455
+shader_parameter/center_brightness = 0.085
 
 [node name="MainScene" type="Node2D"]
 
@@ -368,19 +374,9 @@ texture = ExtResource("5_6jybn")
 
 [node name="Particles" type="Node2D" parent="Background"]
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="Background/Particles"]
-visible = false
-position = Vector2(528, 10)
-amount = 150
-texture = ExtResource("6_m35m6")
-lifetime = 17.040000000000003
-preprocess = 10.0
-randomness = 0.59
-visibility_rect = Rect2(-800, -100, 800, 500)
-process_material = ExtResource("16_ak604")
-
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Background/Particles"]
 position = Vector2(72, 157)
+emitting = false
 amount = 150
 texture = ExtResource("6_m35m6")
 lifetime = 17.040000000000003
@@ -391,6 +387,7 @@ process_material = ExtResource("16_ak604")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Background/Particles"]
 position = Vector2(72, -11)
+emitting = false
 amount = 25
 texture = ExtResource("7_u0ygc")
 lifetime = 17.040000000000003
@@ -412,7 +409,7 @@ tile_map_data = PackedByteArray("AAAqACkAAAAEAAIAAAApACkAAAAEAAIAAAAoACkAAAAIAAI
 tile_set = SubResource("TileSet_7ycvg")
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-position = Vector2(586, 563)
+position = Vector2(592, 563)
 script = ExtResource("2_d5x1h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
@@ -426,6 +423,7 @@ position = Vector2(-46, 4.5)
 shape = SubResource("RectangleShape2D_8mm7a")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-49, 1)
 zoom = Vector2(2, 2)
 position_smoothing_speed = 25.0
 
@@ -442,10 +440,10 @@ healthComponent = NodePath("../HealthComponent")
 [node name="ColorRect" type="ColorRect" parent="Player"]
 material = SubResource("ShaderMaterial_vimvf")
 layout_direction = 1
-offset_left = -160.0
-offset_top = -91.0
-offset_right = 159.0
-offset_bottom = 90.0
+offset_left = -216.0
+offset_top = -94.0
+offset_right = 114.0
+offset_bottom = 96.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -480,3 +478,4 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Palourde" parent="." groups=["enemies"] instance=ExtResource("7_nfk4m")]
+position = Vector2(665, 553)

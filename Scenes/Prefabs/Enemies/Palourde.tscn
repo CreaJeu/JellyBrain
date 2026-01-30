@@ -132,6 +132,7 @@ size = Vector2(53, 27.5)
 script = ExtResource("1_m0vev")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
 libraries = {
 &"": SubResource("AnimationLibrary_n3432")
 }
