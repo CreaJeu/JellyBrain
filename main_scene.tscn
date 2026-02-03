@@ -375,8 +375,7 @@ texture = ExtResource("5_6jybn")
 [node name="Particles" type="Node2D" parent="Background"]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Background/Particles"]
-position = Vector2(72, 157)
-emitting = false
+position = Vector2(74, 157)
 amount = 150
 texture = ExtResource("6_m35m6")
 lifetime = 17.040000000000003
@@ -386,8 +385,7 @@ visibility_rect = Rect2(-400, -400, 800, 800)
 process_material = ExtResource("16_ak604")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Background/Particles"]
-position = Vector2(72, -11)
-emitting = false
+position = Vector2(74, -11)
 amount = 25
 texture = ExtResource("7_u0ygc")
 lifetime = 17.040000000000003
@@ -428,6 +426,7 @@ zoom = Vector2(2, 2)
 position_smoothing_speed = 25.0
 
 [node name="HealthComponent" parent="Player" instance=ExtResource("5_66tet")]
+_maxHealth = 3
 
 [node name="PlayerHud" parent="Player" node_paths=PackedStringArray("healthComponent") instance=ExtResource("7_wr18j")]
 anchors_preset = 0
