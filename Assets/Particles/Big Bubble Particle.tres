@@ -1,4 +1,4 @@
-[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://c5laiy1uakc75"]
+[gd_resource type="ParticleProcessMaterial" load_steps=0 format=3 uid="uid://c5laiy1uakc75"]
 
 [resource]
 particle_flag_disable_z = true
