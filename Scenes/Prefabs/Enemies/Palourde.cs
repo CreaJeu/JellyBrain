@@ -78,6 +78,6 @@ public partial class Palourde : Node2D
 
 	private void _changeFacingDirection(Direction newDirection)
 	{
-		_sprite.FlipH = newDirection == Direction.Left;
+		_sprite.FlipH = newDirection == Direction.Right;
 	}
 }
