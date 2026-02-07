@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=3 format=3 uid="uid://2ubi3htuoya1"]
 
-[ext_resource type="Script" uid="uid://c808x1dggv4xq" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
+[ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
+[ext_resource type="PackedScene" uid="uid://5hee8dpqqvk" path="res://Scenes/Dialogue/Dialogue.tscn" id="2_5s0a3"]
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
@@ -16,6 +17,10 @@ script = ExtResource("1_mxnli")
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Dialogue" parent="CanvasLayer/AspectRatioContainer" instance=ExtResource("2_5s0a3")]
+visible = false
+position = Vector2(337, 301)
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/AspectRatioContainer"]
 layout_mode = 2
