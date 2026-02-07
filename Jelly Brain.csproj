@@ -5,4 +5,10 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>JellyBrain</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Scenes\Dialogue\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+  </ItemGroup>
 </Project>

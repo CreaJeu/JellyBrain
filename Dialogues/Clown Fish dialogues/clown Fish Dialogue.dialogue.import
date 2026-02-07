@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://brh7tmc8h7ghr"
+path="res://.godot/imported/clown Fish Dialogue.dialogue-38c47a2616da3f595004e8fb1cfc346a.tres"
+
+[deps]
+
+source_file="res://Dialogues/Clown Fish dialogues/clown Fish Dialogue.dialogue"
+dest_files=["res://.godot/imported/clown Fish Dialogue.dialogue-38c47a2616da3f595004e8fb1cfc346a.tres"]
+
+[params]
+
+defaults=true

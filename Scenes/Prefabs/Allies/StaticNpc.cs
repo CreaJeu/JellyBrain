@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using DialogueManagerRuntime;
 using JellyBrain.Scenes.Components;
 using JellyBrain.Scripts.Utils;
 
@@ -39,6 +40,9 @@ public partial class StaticNpc : Node2D
 	
 	private void _onInteract()
 	{
+		var resource = GD.Load("res://Dialogues/Clown Fish dialogues/clown Fish Dialogue.dialogue");
+		var dialogueScene = GD.Load<PackedScene>("res://Scenes/Dialogue/Dialogue.tscn");
+		
 		GD.Print($"{Name} Received interact and can do talk!");
 	}
 

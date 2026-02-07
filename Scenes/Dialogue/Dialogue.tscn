@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://5hee8dpqqvk"]
+[gd_scene load_steps=6 format=3 uid="uid://5hee8dpqqvk"]
 
+[ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="1_fugfe"]
 [ext_resource type="Texture2D" uid="uid://c6tp6svyry0yn" path="res://Assets/UI/DialogueBubble.png" id="1_i33ph"]
 [ext_resource type="Texture2D" uid="uid://wmx37kg5rg6k" path="res://Assets/UI/bubble2.png" id="2_oj6as"]
 [ext_resource type="Texture2D" uid="uid://dcfsgxepcox3t" path="res://Assets/UI/CORAIL6.png" id="2_urmic"]
 [ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="3_oj6as"]
 
 [node name="Dialogue" type="Node2D"]
-position = Vector2(311, 171)
+script = ExtResource("1_fugfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_i33ph")
@@ -15,10 +16,23 @@ texture = ExtResource("1_i33ph")
 position = Vector2(116, 33)
 texture = ExtResource("2_urmic")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(121, -3)
-emitting = false
-amount = 3
+[node name="CharacterName" type="RichTextLabel" parent="."]
+offset_left = -140.0
+offset_top = -40.0
+offset_right = -93.0
+offset_bottom = -29.0
+
+[node name="Text" type="RichTextLabel" parent="."]
+offset_left = -138.0
+offset_top = -24.0
+offset_right = 102.0
+offset_bottom = 33.0
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
+position = Vector2(119, 25)
+amount = 5
 texture = ExtResource("2_oj6as")
 preprocess = 1.21
 explosiveness = 0.26
@@ -27,10 +41,9 @@ gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
-position = Vector2(121, -3)
-emitting = false
-amount = 3
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Particles"]
+position = Vector2(118, 26)
+amount = 5
 texture = ExtResource("3_oj6as")
 preprocess = 1.21
 explosiveness = 0.26
