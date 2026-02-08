@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=7 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
-[ext_resource type="PackedScene" uid="uid://5hee8dpqqvk" path="res://Scenes/Dialogue/Dialogue.tscn" id="2_5s0a3"]
+[ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
+[ext_resource type="Texture2D" uid="uid://c6tp6svyry0yn" path="res://Assets/UI/DialogueBubble.png" id="3_ua0dn"]
+[ext_resource type="Texture2D" uid="uid://dcfsgxepcox3t" path="res://Assets/UI/CORAIL6.png" id="4_qj1an"]
+[ext_resource type="Texture2D" uid="uid://wmx37kg5rg6k" path="res://Assets/UI/bubble2.png" id="5_k0efp"]
+[ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="6_14ndq"]
 
 [node name="PlayerHud" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,9 +23,53 @@ script = ExtResource("1_mxnli")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Dialogue" parent="CanvasLayer/AspectRatioContainer" instance=ExtResource("2_5s0a3")]
+[node name="Dialogue" type="Node2D" parent="CanvasLayer/AspectRatioContainer"]
 visible = false
 position = Vector2(337, 301)
+script = ExtResource("2_tubh3")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+texture = ExtResource("3_ua0dn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+position = Vector2(116, 33)
+texture = ExtResource("4_qj1an")
+
+[node name="CharacterName" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+offset_left = -140.0
+offset_top = -40.0
+offset_right = -93.0
+offset_bottom = -29.0
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+offset_left = -138.0
+offset_top = -24.0
+offset_right = 102.0
+offset_bottom = 33.0
+
+[node name="Particles" type="Node2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/AspectRatioContainer/Dialogue/Particles"]
+position = Vector2(119, 25)
+amount = 5
+texture = ExtResource("5_k0efp")
+preprocess = 1.21
+explosiveness = 0.26
+randomness = 0.45
+gravity = Vector2(0, -500)
+initial_velocity_min = 30.93
+initial_velocity_max = 103.09
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="CanvasLayer/AspectRatioContainer/Dialogue/Particles"]
+position = Vector2(118, 26)
+amount = 5
+texture = ExtResource("6_14ndq")
+preprocess = 1.21
+explosiveness = 0.26
+randomness = 0.45
+gravity = Vector2(0, -500)
+initial_velocity_min = 30.93
+initial_velocity_max = 103.09
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/AspectRatioContainer"]
 layout_mode = 2

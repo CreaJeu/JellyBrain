@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using DialogueManagerRuntime;
+using JellyBrain.Scripts.Errors;
+using JellyBrain.Scripts.GameLogic;
 
 public partial class DialogueScriptScene : Node2D
 {
@@ -10,18 +12,26 @@ public partial class DialogueScriptScene : Node2D
 
     public override void _Ready()
     {
-        characterNameTextField = GD.Load<RichTextLabel>("CharacterName");
-        Particles = GD.Load<Node2D>("Particles");
-        DialogueText = GD.Load<RichTextLabel>("Text");
-    }
-    public void loadAndStartDialogue(string path, string name)
-    {
-        DialogueLine line = DialogueManager.GetNextDialogueLine(GD.Load(path), name).GetAwaiter().GetResult();
-        DialogueText.Text = line.Text;
-    }
+        characterNameTextField = GetNode<RichTextLabel>("CharacterName");
+        Particles = GetNode<Node2D>("Particles");
+        DialogueText = GetNode<RichTextLabel>("Text");
+        GetNode<GameEvents>("/root/GameEvents").StartDialogue += OnStartDialogueRequest;
 
-    public void startDialogue()
+    }
+    
+    private async void OnStartDialogueRequest(string path, string name)
     {
-        //TODO fill this
+        DialogueLine dialogue = await DialogueManager.GetNextDialogueLine(GD.Load(path), name);
+        if (dialogue != null)
+        {
+            SetVisible(true);
+            DialogueText.Text = dialogue.Text;
+            GD.Print("Dialogue open");
+
+        }
+        else
+        {
+            throw new IncorrectPathError("Could not find Dialogue line: " + name);
+        }
     }
 }

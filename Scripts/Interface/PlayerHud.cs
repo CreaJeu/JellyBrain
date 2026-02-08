@@ -12,10 +12,7 @@ public partial class PlayerHud : Control
     [Export]
     public HealthComponent healthComponent;
     
-    //For dialogue purpose  
-    private RichTextLabel characterNameTextField;
-    private RichTextLabel DialogueText;
-    private Node2D Particles;
+   
 
 
     
@@ -30,11 +27,16 @@ public partial class PlayerHud : Control
         }
         hpHeartList = CollectionsAlternative.GetChildren<ColorRect>(GetNode<VSeparator>("CanvasLayer/AspectRatioContainer/VSeparator"));
         healthComponent.HealthChanged += _onHealthChanged;
-        GetNode<GameEvents>("/root/GameEvents").StartDialogue += OnStartDialogueRequest;
 
     }
-    
-    
+
+    public override void _Process(double delta)
+    {
+        GD.Print("HUD Heartbeat...");
+        
+    }
+
+
     private void _onHealthChanged(int oldHealth, int newHealth)
     {
         for (int i = 0; i < newHealth; i++)
@@ -49,14 +51,7 @@ public partial class PlayerHud : Control
         //GD.Print($"oldHealth: {oldHealth}, newHealth: {newHealth}");
 		
     }
-    private void OnStartDialogueRequest(string path, string name)
-    {
-        DialogueLine dialogue = DialogueManager.GetNextDialogueLine(GD.Load(path), name).GetAwaiter().GetResult();
-        if (dialogue != null)
-        {
-            
-        }
-    }
+   
     
 
 }

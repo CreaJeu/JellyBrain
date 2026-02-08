@@ -45,7 +45,9 @@ public partial class Interactable : Area2D
 		_label.Visible = false;
 		_playerInRange = false;
 	}
+
 	
+
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (!_playerInRange) return;
@@ -53,12 +55,16 @@ public partial class Interactable : Area2D
 		if (@event.IsActionPressed("interact"))
 		{
 			_onInteractKeyPressed();
+			GetViewport().SetInputAsHandled(); 
+			GD.Print("Interact");
 		}
 	}
 
 
 	private void _onInteractKeyPressed()
 	{
+		GD.Print("Interact signal emit");
+
 		EmitSignal(SignalName.InteractedWith);
 	}
 }

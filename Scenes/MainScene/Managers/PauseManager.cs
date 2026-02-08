@@ -23,13 +23,15 @@ public partial class PauseManager : Node
 	
 	private void TogglePauseMenu()
 	{
-		bool showing = !PauseMenu.Visible;
+		bool showing = !GetTree().Paused; // Base it on the actual tree state
 
 		PauseMenu.Visible = showing;
 		if (DarkenBackground != null)
 			DarkenBackground.Visible = showing;
 
 		GetTree().Paused = showing;
+    
+		GetViewport().SetInputAsHandled(); 
 	}
 	
 	private void OnResumeGame()

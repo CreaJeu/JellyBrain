@@ -41,8 +41,6 @@ public partial class StaticNpc : Node2D
 	
 	private void _onInteract()
 	{
-		var resource = GD.Load("res://Dialogues/Clown Fish dialogues/clown Fish Dialogue.dialogue");
-		var dialogueScene = GD.Load<PackedScene>("res://Scenes/Dialogue/Dialogue.tscn");
 		GetNode<GameEvents>("/root/GameEvents").EmitSignal(GameEvents.SignalName.StartDialogue,
 			"res://Dialogues/Clown Fish dialogues/clown Fish Dialogue.dialogue", "start");
 		GD.Print($"{Name} Received interact and can do talk!");
