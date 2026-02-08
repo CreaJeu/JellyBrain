@@ -44,6 +44,15 @@ project/assembly_name="Jelly Brain"
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "green",
+"res://Dialogues/": "blue",
+"res://Scenes/": "purple",
+"res://Scripts/": "pink"
+}
+
 [global_group]
 
 player=""
