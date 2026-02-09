@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=11 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
@@ -8,6 +8,14 @@
 [ext_resource type="Script" uid="uid://g32um0mltv5d" path="res://addons/dialogue_manager/dialogue_label.gd" id="5_ua0dn"]
 [ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="6_14ndq"]
 [ext_resource type="Theme" uid="uid://barrajepakfr0" path="res://Assets/Themes/generic_theme.tres" id="6_qj1an"]
+[ext_resource type="Shader" uid="uid://bybe6bmtfkc3v" path="res://Assets/Shaders/blue_filter.gdshader" id="9_k0efp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14ndq"]
+shader = ExtResource("9_k0efp")
+shader_parameter/blue_tint = Color(0, 0.4, 0.6, 0.3)
+shader_parameter/light_radius = 0.5
+shader_parameter/light_softness = 0.6
+shader_parameter/center_brightness = 1.0
 
 [node name="PlayerHud" type="Control"]
 process_mode = 3
@@ -20,6 +28,16 @@ grow_vertical = 2
 script = ExtResource("1_mxnli")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_14ndq")
+layout_direction = 1
+offset_left = -9.0
+offset_top = -14.0
+offset_right = 661.0
+offset_bottom = 366.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
 offset_right = 40.0

@@ -26,12 +26,6 @@ public partial class DialogueScriptScene : Node2D
 
         
     }
-
-    public override void _Process(double delta)
-    {
-        GD.Print(Scale);
-    }
-
     public override void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledInput(@event);

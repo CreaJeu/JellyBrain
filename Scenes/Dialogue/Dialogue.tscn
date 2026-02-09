@@ -21,6 +21,7 @@ offset_bottom = 96.0
 [node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
 layout_mode = 2
 texture = ExtResource("1_i33ph")
+stretch_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="AspectRatioContainer"]
 visible = false
