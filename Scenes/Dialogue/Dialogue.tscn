@@ -1,37 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://5hee8dpqqvk"]
+[gd_scene load_steps=7 format=3 uid="uid://5hee8dpqqvk"]
 
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="1_fugfe"]
 [ext_resource type="Texture2D" uid="uid://c6tp6svyry0yn" path="res://Assets/UI/DialogueBubble.png" id="1_i33ph"]
 [ext_resource type="Texture2D" uid="uid://wmx37kg5rg6k" path="res://Assets/UI/bubble2.png" id="2_oj6as"]
 [ext_resource type="Texture2D" uid="uid://dcfsgxepcox3t" path="res://Assets/UI/CORAIL6.png" id="2_urmic"]
 [ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="3_oj6as"]
+[ext_resource type="Texture2D" uid="uid://de1g52yab56kc" path="res://icon.svg" id="6_7dtm1"]
 
-[node name="Dialogue" type="Node2D"]
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_fugfe")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 301.0
+offset_bottom = 96.0
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
 texture = ExtResource("1_i33ph")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(116, 33)
+[node name="TextureRect2" type="TextureRect" parent="AspectRatioContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_urmic")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="AspectRatioContainer"]
+position = Vector2(272, 82)
 texture = ExtResource("2_urmic")
 
-[node name="CharacterName" type="RichTextLabel" parent="."]
-offset_left = -140.0
-offset_top = -40.0
-offset_right = -93.0
-offset_bottom = -29.0
+[node name="Particles" type="Node2D" parent="AspectRatioContainer"]
+position = Vector2(279, 72)
 
-[node name="Text" type="RichTextLabel" parent="."]
-offset_left = -138.0
-offset_top = -24.0
-offset_right = 102.0
-offset_bottom = 33.0
-
-[node name="Particles" type="Node2D" parent="."]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
-position = Vector2(119, 25)
+[node name="CPUParticles2D" type="CPUParticles2D" parent="AspectRatioContainer/Particles"]
 amount = 5
 texture = ExtResource("2_oj6as")
 preprocess = 1.21
@@ -41,8 +48,7 @@ gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="Particles"]
-position = Vector2(118, 26)
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="AspectRatioContainer/Particles"]
 amount = 5
 texture = ExtResource("3_oj6as")
 preprocess = 1.21
@@ -51,3 +57,21 @@ randomness = 0.45
 gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
+
+[node name="HSplitContainer" type="HSplitContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="CharacterHead" type="TextureRect" parent="AspectRatioContainer/HSplitContainer"]
+layout_mode = 2
+texture = ExtResource("6_7dtm1")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="AspectRatioContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="CharacterName" type="RichTextLabel" parent="AspectRatioContainer/HSplitContainer/VSplitContainer"]
+layout_mode = 2
+text = "Name Character"
+
+[node name="Text" type="RichTextLabel" parent="AspectRatioContainer/HSplitContainer/VSplitContainer"]
+layout_mode = 2
+text = "Test de texte"
