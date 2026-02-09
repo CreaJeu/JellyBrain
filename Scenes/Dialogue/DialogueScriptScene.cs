@@ -85,7 +85,7 @@ public partial class DialogueScriptScene : Node2D
 
         }
         SetVisible(true);
-d
+
         PopIn();
         
             

@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://barrajepakfr0"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://barrajepakfr0"]
 
-[ext_resource type="FontFile" uid="uid://cepqpytor6agl" path="res://Assets/Fonts/ComicSans/Comic Sans MS.ttf" id="1_bnr1x"]
 [ext_resource type="FontFile" uid="uid://doemdkwga8yys" path="res://Assets/Fonts/CutePixel.ttf" id="1_lshb5"]
 [ext_resource type="Texture2D" uid="uid://cwgch8rd7n2vn" path="res://Assets/UI/buttonbackground-hover.png" id="2_gp4qj"]
 [ext_resource type="Texture2D" uid="uid://c5n5qi1p732ps" path="res://Assets/UI/buttonbackground.png" id="2_wovws"]
@@ -30,7 +29,6 @@ texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
 [resource]
-default_font = ExtResource("1_bnr1x")
 Button/font_sizes/font_size = 16
 Button/fonts/font = ExtResource("1_lshb5")
 Button/styles/focus = SubResource("StyleBoxTexture_gp4qj")
