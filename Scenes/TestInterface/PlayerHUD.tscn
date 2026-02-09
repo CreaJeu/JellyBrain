@@ -26,6 +26,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Dialogue" type="Node2D" parent="CanvasLayer/AspectRatioContainer"]
+visible = false
 position = Vector2(317, 301)
 script = ExtResource("2_tubh3")
 
