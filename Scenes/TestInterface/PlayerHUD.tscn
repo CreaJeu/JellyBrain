@@ -26,37 +26,42 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Dialogue" type="Node2D" parent="CanvasLayer/AspectRatioContainer"]
+visible = false
 position = Vector2(337, 301)
 script = ExtResource("2_tubh3")
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+position = Vector2(-1, 0)
 texture = ExtResource("3_ua0dn")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
-position = Vector2(116, 33)
+position = Vector2(115, 33)
 texture = ExtResource("4_qj1an")
 
 [node name="CharacterName" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
-offset_left = -140.0
+offset_left = -141.0
 offset_top = -40.0
-offset_right = -74.0
+offset_right = -75.0
 offset_bottom = -16.0
 theme = ExtResource("6_qj1an")
+text = "Test"
 script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
-offset_left = -138.0
+offset_left = -139.0
 offset_top = -15.0
-offset_right = 98.0
+offset_right = 97.0
 offset_bottom = 33.0
 theme = ExtResource("6_qj1an")
+text = "qtest"
 script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
 
 [node name="Particles" type="Node2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+position = Vector2(-1, 0)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/AspectRatioContainer/Dialogue/Particles"]
 position = Vector2(119, 25)

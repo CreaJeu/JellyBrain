@@ -26,7 +26,12 @@ public partial class DialogueScriptScene : Node2D
 
         
     }
-    
+
+    public override void _Process(double delta)
+    {
+        GD.Print(Scale);
+    }
+
     public override void _UnhandledInput(InputEvent @event)
     {
         base._UnhandledInput(@event);
@@ -40,20 +45,28 @@ public partial class DialogueScriptScene : Node2D
 
     private async void nextLine()
     {
-        if (CurrentDialoguePath != null && CurrentDialogueName != null && CurrentDialogueFile != null)
+        if (CurrentDialoguePath != null && CurrentDialogueName != null && CurrentDialogueFile != null && CurrentLineDisplayed != null)
         {
             //This line gets the next dialogue to follow
             DialogueLine dialogueLine = await DialogueManager.GetNextDialogueLine(CurrentDialogueFile, CurrentLineDisplayed.NextId);
-            readLine(dialogueLine);
+            if (dialogueLine != null)
+            {
+                readLine(dialogueLine);
+            }
         }
 
     }
 
     private void readLine(DialogueLine dialogue)
     {
-        SetVisible(true);
-        CurrentLineDisplayed = dialogue;
         DialogueText.Text = dialogue.Text;
+        DialogueText.VisibleRatio = 0; // Start with text hidden
+
+        Tween textTween = GetTree().CreateTween();
+        textTween.TweenProperty(DialogueText, "visible_ratio", 1.0f, dialogue.Text.Length * 0.02f);
+        
+        
+        CurrentLineDisplayed = dialogue;
         characterNameTextField.Text = dialogue.Character;
         GD.Print("Dialogue open");
 
@@ -71,11 +84,33 @@ public partial class DialogueScriptScene : Node2D
             throw new IncorrectPathError("Could not find Dialogue line: " + CurrentDialogueName + "\n in path :" +  CurrentDialoguePath);
 
         }
+        SetVisible(true);
+d
+        PopIn();
+        
+            
+        
         readLine(dialogue);
+        
+    }
+    
+    private void PopIn()
+    {
+        Scale = Vector2.Zero; 
+
+        Tween tween = GetTree().CreateTween();
+    
+        
+        tween.TweenProperty(this, "scale", Vector2.One, 0.4f)
+            .SetTrans(Tween.TransitionType.Back)
+            .SetEase(Tween.EaseType.Out);
+         
+        GD.Print("Tween started on Node2D");
     }
 
     private void DialogueEnded(Resource dialogueResource)
     {
+        GD.Print("Dialogue ended");
         this.SetVisible(false);
         CurrentDialogueName = null;
         CurrentLineDisplayed = null;
