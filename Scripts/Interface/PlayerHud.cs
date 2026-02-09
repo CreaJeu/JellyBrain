@@ -30,11 +30,6 @@ public partial class PlayerHud : Control
 
     }
 
-    public override void _Process(double delta)
-    {
-        GD.Print("HUD Heartbeat...");
-        
-    }
 
 
     private void _onHealthChanged(int oldHealth, int newHealth)
