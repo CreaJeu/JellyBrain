@@ -10,7 +10,9 @@ public partial class DialogueScriptScene : Node2D
     private RichTextLabel DialogueText;
     private Node2D Particles;
 
-    private DialogueLine currentLineDisplayed;
+
+    private Resource CurrentDialogueFile;
+    private DialogueLine CurrentLineDisplayed;
     private string CurrentDialoguePath;
     private string CurrentDialogueName;
 
@@ -20,7 +22,9 @@ public partial class DialogueScriptScene : Node2D
         Particles = GetNode<Node2D>("Particles");
         DialogueText = GetNode<RichTextLabel>("Text");
         GetNode<GameEvents>("/root/GameEvents").StartDialogue += OnStartDialogueRequest;
+        DialogueManager.DialogueEnded += DialogueEnded;
 
+        
     }
     
     public override void _UnhandledInput(InputEvent @event)
@@ -36,36 +40,46 @@ public partial class DialogueScriptScene : Node2D
 
     private async void nextLine()
     {
-        if (CurrentDialoguePath != null && CurrentDialogueName != null)
+        if (CurrentDialoguePath != null && CurrentDialogueName != null && CurrentDialogueFile != null)
         {
-            DialogueLine dialogue = await DialogueManager.GetNextDialogueLine(GD.Load(CurrentDialoguePath), CurrentDialogueName);
-            readLine(dialogue);
+            //This line gets the next dialogue to follow
+            DialogueLine dialogueLine = await DialogueManager.GetNextDialogueLine(CurrentDialogueFile, CurrentLineDisplayed.NextId);
+            readLine(dialogueLine);
         }
 
     }
 
     private void readLine(DialogueLine dialogue)
     {
-        if (dialogue != null)
-        {
-            SetVisible(true);
-            currentLineDisplayed = dialogue;
-            DialogueText.Text = dialogue.Text;
-            GD.Print("Dialogue open");
+        SetVisible(true);
+        CurrentLineDisplayed = dialogue;
+        DialogueText.Text = dialogue.Text;
+        characterNameTextField.Text = dialogue.Character;
+        GD.Print("Dialogue open");
 
-        }
-        else
-        {
-            throw new IncorrectPathError("Could not find Dialogue line: " + CurrentDialogueName + "\n in path :" +  CurrentDialoguePath);
-
-        }
+        
     }
 
     public async void OnStartDialogueRequest(string path, string name)
     {
         CurrentDialogueName = name;
         CurrentDialoguePath = path;
-        DialogueLine dialogue = await DialogueManager.GetNextDialogueLine(GD.Load(path), name);
+        CurrentDialogueFile = GD.Load(path);
+        DialogueLine dialogue = await DialogueManager.GetNextDialogueLine(CurrentDialogueFile, name);
+        if (dialogue == null)
+        {
+            throw new IncorrectPathError("Could not find Dialogue line: " + CurrentDialogueName + "\n in path :" +  CurrentDialoguePath);
+
+        }
         readLine(dialogue);
+    }
+
+    private void DialogueEnded(Resource dialogueResource)
+    {
+        this.SetVisible(false);
+        CurrentDialogueName = null;
+        CurrentLineDisplayed = null;
+        CurrentDialoguePath = null;
+        DialogueText.Text = "";
     }
 }

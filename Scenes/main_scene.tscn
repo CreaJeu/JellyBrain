@@ -375,7 +375,7 @@ texture = ExtResource("5_6jybn")
 [node name="Particles" type="Node2D" parent="Background"]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Background/Particles"]
-position = Vector2(74, 157)
+position = Vector2(74, 158)
 amount = 150
 texture = ExtResource("6_m35m6")
 lifetime = 17.040000000000003

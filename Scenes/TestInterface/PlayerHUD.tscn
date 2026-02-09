@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=9 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://wmx37kg5rg6k" path="res://Assets/UI/bubble2.png" id="5_k0efp"]
 [ext_resource type="Script" uid="uid://g32um0mltv5d" path="res://addons/dialogue_manager/dialogue_label.gd" id="5_ua0dn"]
 [ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="6_14ndq"]
+[ext_resource type="Theme" uid="uid://barrajepakfr0" path="res://Assets/Themes/generic_theme.tres" id="6_qj1an"]
 
 [node name="PlayerHud" type="Control"]
 process_mode = 3
@@ -25,7 +26,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Dialogue" type="Node2D" parent="CanvasLayer/AspectRatioContainer"]
-visible = false
 position = Vector2(337, 301)
 script = ExtResource("2_tubh3")
 
@@ -39,17 +39,19 @@ texture = ExtResource("4_qj1an")
 [node name="CharacterName" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
 offset_left = -140.0
 offset_top = -40.0
-offset_right = -93.0
-offset_bottom = -29.0
+offset_right = -74.0
+offset_bottom = -16.0
+theme = ExtResource("6_qj1an")
 script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
 offset_left = -138.0
-offset_top = -24.0
-offset_right = 102.0
+offset_top = -15.0
+offset_right = 98.0
 offset_bottom = 33.0
+theme = ExtResource("6_qj1an")
 script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
