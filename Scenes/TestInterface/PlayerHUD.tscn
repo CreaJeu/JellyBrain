@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=20 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Theme" uid="uid://barrajepakfr0" path="res://Assets/Themes/generic_theme.tres" id="6_qj1an"]
 [ext_resource type="Shader" uid="uid://bybe6bmtfkc3v" path="res://Assets/Shaders/blue_filter.gdshader" id="9_k0efp"]
 [ext_resource type="Texture2D" uid="uid://cgc4kebnwg573" path="res://Assets/UI/HUD/LoadingAnimation-Sheet.png" id="10_14ndq"]
+[ext_resource type="Script" uid="uid://6vk24nup3yt" path="res://Scenes/TestInterface/SavingIcon.cs" id="10_n31fg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_14ndq"]
 shader = ExtResource("9_k0efp")
@@ -80,20 +81,29 @@ script = ExtResource("1_mxnli")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+[node name="HP" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/HP"]
+layout_mode = 0
 offset_right = 46.0
 offset_bottom = 44.0
 size_flags_horizontal = 3
 color = Color(1, 0, 0, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/HP"]
+layout_mode = 0
 offset_left = 58.0
 offset_right = 104.0
 offset_bottom = 44.0
 size_flags_horizontal = 3
 color = Color(1, 0, 0, 1)
 
-[node name="ColorRect4" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/HP"]
+layout_mode = 0
 offset_left = 116.0
 offset_top = -1.0
 offset_right = 162.0
@@ -174,10 +184,12 @@ gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
 
-[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+[node name="SavingIcon" type="Node2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(537, 285)
+script = ExtResource("10_n31fg")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Node2D"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SavingIcon"]
 texture_filter = 1
 offset_left = 35.0
 offset_top = 53.0
@@ -187,10 +199,11 @@ theme = ExtResource("6_qj1an")
 theme_override_font_sizes/normal_font_size = 16
 text = "Saving.."
 fit_content = true
+metadata/_edit_use_anchors_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/SavingIcon"]
 position = Vector2(92, 57)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_tjpqp")
 autoplay = "default"
-frame_progress = 0.7731102
+frame_progress = 0.3933692

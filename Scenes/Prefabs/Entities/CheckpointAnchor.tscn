@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdcv64iwer1m5"]
+[gd_scene load_steps=5 format=3 uid="uid://bdcv64iwer1m5"]
 
 [ext_resource type="Script" uid="uid://duhwyic3wai2o" path="res://Scenes/Prefabs/Entities/CheckpointAnchor.cs" id="1_wp8hb"]
 [ext_resource type="Texture2D" uid="uid://xv8o6yibf0yr" path="res://Assets/Sprites/Neutral/checkpoint_anchor(1).png" id="2_gofwa"]
+[ext_resource type="PackedScene" uid="uid://d0ebt5xr1as7e" path="res://Scenes/Components/interactable.tscn" id="3_gofwa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gofwa"]
+size = Vector2(25, 35)
 
 [node name="CheckpointAnchor" type="Node2D"]
 script = ExtResource("1_wp8hb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_gofwa")
+
+[node name="Interactable" parent="." node_paths=PackedStringArray("_collisionShape") instance=ExtResource("3_gofwa")]
+_collisionShape = NodePath("../CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_gofwa")

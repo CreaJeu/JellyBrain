@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=37 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://ddf73f6q70eyi" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
 [ext_resource type="Material" uid="uid://dhks2n3gkpg7l" path="res://Assets/Shaders/watershader material3.tres" id="1_7th4q"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://jquqglmv6ajc" path="res://Scenes/Prefabs/Enemies/Palourde.tscn" id="7_nfk4m"]
 [ext_resource type="Texture2D" uid="uid://dj4msipg5hvb4" path="res://Assets/Particles/bubble5x5.png" id="7_u0ygc"]
 [ext_resource type="PackedScene" uid="uid://2ubi3htuoya1" path="res://Scenes/TestInterface/PlayerHUD.tscn" id="7_wr18j"]
+[ext_resource type="PackedScene" uid="uid://bdcv64iwer1m5" path="res://Scenes/Prefabs/Entities/CheckpointAnchor.tscn" id="13_5cm5d"]
 [ext_resource type="Material" uid="uid://7co3phtwiifv" path="res://Assets/Particles/Little Bubble Particle.tres" id="16_ak604"]
 [ext_resource type="Texture2D" uid="uid://uu5calwad4e2" path="res://Assets/Sprites/yvanPixelArt/TileSet/tileset_test.png" id="16_nt2eh"]
 [ext_resource type="Material" uid="uid://c5laiy1uakc75" path="res://Assets/Particles/Big Bubble Particle.tres" id="18_vimvf"]
@@ -439,11 +440,14 @@ randomness = 0.59
 visibility_rect = Rect2(-400, -400, 800, 800)
 process_material = ExtResource("18_vimvf")
 
+[node name="CheckpointAnchor" parent="." instance=ExtResource("13_5cm5d")]
+position = Vector2(480, 522)
+
 [node name="StickyEnemy" parent="." instance=ExtResource("3_7ycvg")]
 position = Vector2(407, 502)
 
 [node name="StaticNPC" parent="." groups=["allies"] instance=ExtResource("1_7ycvg")]
-position = Vector2(378, 643)
+position = Vector2(427, 643)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

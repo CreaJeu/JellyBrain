@@ -25,7 +25,7 @@ public partial class PlayerHud : Control
         {
             throw new NullReferenceException("Health component was not passed to the node");
         }
-        hpHeartList = CollectionsAlternative.GetChildren<ColorRect>(GetNode<VSeparator>("CanvasLayer/AspectRatioContainer/VSeparator"));
+        hpHeartList = CollectionsAlternative.GetChildren<ColorRect>(GetNode<Control>("CanvasLayer/HP"));
         healthComponent.HealthChanged += _onHealthChanged;
 
     }
