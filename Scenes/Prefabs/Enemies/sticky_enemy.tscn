@@ -1,6 +1,5 @@
-[gd_scene load_steps=41 format=3 uid="uid://bqh356hexede1"]
+[gd_scene load_steps=40 format=3 uid="uid://bqh356hexede1"]
 
-[ext_resource type="Script" uid="uid://d0o62lha62rgy" path="res://Scripts/Enemies/StickyEnemy.cs" id="1_28yxh"]
 [ext_resource type="Texture2D" uid="uid://c2p501jaougo8" path="res://Assets/Sprites/Enemies/Crab/crab.png" id="2_28yxh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rs10o"]
@@ -265,7 +264,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"new_animation",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1vvs3"]
@@ -274,28 +273,14 @@ size = Vector2(64, 37)
 [node name="StickyEnemy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource("1_28yxh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_n5wrs")
 animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.6923151
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 13.5)
+position = Vector2(0, -18.5)
 shape = SubResource("RectangleShape2D_1vvs3")
-
-[node name="CornerTL" type="RayCast2D" parent="."]
-position = Vector2(0, 14)
-target_position = Vector2(-40, -26)
-
-[node name="CornerBL" type="RayCast2D" parent="."]
-position = Vector2(0, 14)
-target_position = Vector2(-38, 24)
-
-[node name="CornerTR" type="RayCast2D" parent="."]
-position = Vector2(0, 14)
-target_position = Vector2(39, -27)
-
-[node name="CornerBR" type="RayCast2D" parent="."]
-position = Vector2(0, 14)
-target_position = Vector2(37, 26)

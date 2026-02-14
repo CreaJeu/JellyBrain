@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=39 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://ddf73f6q70eyi" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
 [ext_resource type="Material" uid="uid://dhks2n3gkpg7l" path="res://Assets/Shaders/watershader material3.tres" id="1_7th4q"]
@@ -25,6 +25,7 @@
 [ext_resource type="Material" uid="uid://c5laiy1uakc75" path="res://Assets/Particles/Big Bubble Particle.tres" id="18_vimvf"]
 [ext_resource type="Script" uid="uid://bdh8ievritfta" path="res://Scenes/ResetCheckpoint.cs" id="23_5oxhp"]
 [ext_resource type="Script" uid="uid://b3djgcanar0k0" path="res://Scenes/LevelBoundsArea.cs" id="24_nt2eh"]
+[ext_resource type="Script" uid="uid://5unqtikm5ont" path="res://Scripts/Enemies/StickyEnemyPath.cs" id="25_5bov3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ghshe"]
 shader = ExtResource("1_vimvf")
@@ -363,6 +364,12 @@ size = Vector2(20, 60)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5oxhp"]
 
+[sub_resource type="Curve2D" id="Curve2D_5cm5d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 418, 544, 0, 0, 0, 0, 512, 544, 0, 0, 0, 0, 512, 576, 0, 0, 0, 0, 336, 576, 0, 0, 0, 0, 336, 544, 0, 0, 0, 0, 418, 544)
+}
+point_count = 6
+
 [node name="MainScene" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
@@ -442,9 +449,6 @@ process_material = ExtResource("18_vimvf")
 
 [node name="CheckpointAnchor" parent="." instance=ExtResource("13_5cm5d")]
 position = Vector2(480, 522)
-
-[node name="StickyEnemy" parent="." instance=ExtResource("3_7ycvg")]
-position = Vector2(407, 502)
 
 [node name="StaticNPC" parent="." groups=["allies"] instance=ExtResource("1_7ycvg")]
 position = Vector2(427, 643)
@@ -564,3 +568,12 @@ script = ExtResource("24_nt2eh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBoundsArea"]
 shape = SubResource("WorldBoundaryShape2D_5oxhp")
+
+[node name="StickyEnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5cm5d")
+script = ExtResource("25_5bov3")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="StickyEnemyPath"]
+position = Vector2(418, 544)
+
+[node name="StickyEnemy" parent="StickyEnemyPath/PathFollow2D" instance=ExtResource("3_7ycvg")]
