@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdcv64iwer1m5"]
+
+[ext_resource type="Script" uid="uid://duhwyic3wai2o" path="res://Scenes/Prefabs/Entities/CheckpointAnchor.cs" id="1_wp8hb"]
+[ext_resource type="Texture2D" uid="uid://xv8o6yibf0yr" path="res://Assets/Sprites/Neutral/checkpoint_anchor(1).png" id="2_gofwa"]
+
+[node name="CheckpointAnchor" type="Node2D"]
+script = ExtResource("1_wp8hb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gofwa")

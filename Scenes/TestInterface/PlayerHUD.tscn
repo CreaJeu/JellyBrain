@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=19 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dmlf5jnxykntf" path="res://Assets/UI/bubble.png" id="6_14ndq"]
 [ext_resource type="Theme" uid="uid://barrajepakfr0" path="res://Assets/Themes/generic_theme.tres" id="6_qj1an"]
 [ext_resource type="Shader" uid="uid://bybe6bmtfkc3v" path="res://Assets/Shaders/blue_filter.gdshader" id="9_k0efp"]
+[ext_resource type="Texture2D" uid="uid://cgc4kebnwg573" path="res://Assets/UI/HUD/LoadingAnimation-Sheet.png" id="10_14ndq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_14ndq"]
 shader = ExtResource("9_k0efp")
@@ -16,6 +17,56 @@ shader_parameter/blue_tint = Color(0, 0.4, 0.6, 0.3)
 shader_parameter/light_radius = 0.5
 shader_parameter/light_softness = 0.6
 shader_parameter/center_brightness = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14ndq"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n31fg"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(10, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awpsg"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1k13"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(30, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkmom"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(40, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thi3v"]
+atlas = ExtResource("10_14ndq")
+region = Rect2(50, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tjpqp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14ndq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n31fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awpsg")
+}, {
+"duration": 0.75,
+"texture": SubResource("AtlasTexture_d1k13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkmom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thi3v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.5
+}]
 
 [node name="PlayerHud" type="Control"]
 process_mode = 3
@@ -29,6 +80,27 @@ script = ExtResource("1_mxnli")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+offset_right = 46.0
+offset_bottom = 44.0
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer"]
+offset_left = 58.0
+offset_right = 104.0
+offset_bottom = 44.0
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer"]
+offset_left = 116.0
+offset_top = -1.0
+offset_right = 162.0
+offset_bottom = 43.0
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_14ndq")
 layout_direction = 1
@@ -39,24 +111,20 @@ offset_bottom = 366.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Dialogue" type="Node2D" parent="CanvasLayer/AspectRatioContainer"]
+[node name="Dialogue" type="Node2D" parent="CanvasLayer"]
 visible = false
-position = Vector2(317, 301)
+position = Vector2(317, 287)
 script = ExtResource("2_tubh3")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Dialogue"]
 position = Vector2(-1, 0)
 texture = ExtResource("3_ua0dn")
 
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Dialogue"]
 position = Vector2(182, 23)
 texture = ExtResource("4_qj1an")
 
-[node name="CharacterName" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+[node name="CharacterName" type="RichTextLabel" parent="CanvasLayer/Dialogue"]
 offset_left = -80.0
 offset_top = -50.0
 offset_right = 1.0
@@ -68,7 +136,7 @@ script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Dialogue"]
 offset_left = -78.0
 offset_top = -24.0
 offset_right = 171.0
@@ -80,11 +148,11 @@ script = ExtResource("5_ua0dn")
 skip_pause_at_abbreviations = PackedStringArray("Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex")
 metadata/_custom_type_script = "uid://g32um0mltv5d"
 
-[node name="Particles" type="Node2D" parent="CanvasLayer/AspectRatioContainer/Dialogue"]
+[node name="Particles" type="Node2D" parent="CanvasLayer/Dialogue"]
 position = Vector2(66, -10)
 metadata/_edit_group_ = true
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/AspectRatioContainer/Dialogue/Particles"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/Dialogue/Particles"]
 position = Vector2(119, 25)
 amount = 5
 texture = ExtResource("5_k0efp")
@@ -95,7 +163,7 @@ gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="CanvasLayer/AspectRatioContainer/Dialogue/Particles"]
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="CanvasLayer/Dialogue/Particles"]
 position = Vector2(118, 26)
 amount = 5
 texture = ExtResource("6_14ndq")
@@ -106,25 +174,23 @@ gravity = Vector2(0, -500)
 initial_velocity_min = 30.93
 initial_velocity_max = 103.09
 
-[node name="VSeparator" type="VSeparator" parent="CanvasLayer/AspectRatioContainer"]
-layout_mode = 2
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+position = Vector2(537, 285)
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
-layout_mode = 0
-offset_right = 30.0
-offset_bottom = 30.0
-color = Color(1, 0, 0, 1)
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Node2D"]
+texture_filter = 1
+offset_left = 35.0
+offset_top = 53.0
+offset_right = 129.0
+offset_bottom = 107.0
+theme = ExtResource("6_qj1an")
+theme_override_font_sizes/normal_font_size = 16
+text = "Saving.."
+fit_content = true
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
-layout_mode = 0
-offset_left = 42.0
-offset_right = 72.0
-offset_bottom = 30.0
-color = Color(1, 0, 0, 1)
-
-[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/AspectRatioContainer/VSeparator"]
-layout_mode = 0
-offset_left = 84.0
-offset_right = 114.0
-offset_bottom = 30.0
-color = Color(1, 0, 0, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Node2D"]
+position = Vector2(92, 57)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_tjpqp")
+autoplay = "default"
+frame_progress = 0.7731102
