@@ -69,9 +69,12 @@ public partial class DialogueScriptScene : Node2D
 
     public async void OnStartDialogueRequest(string path, string name)
     {
+        GetNode<GameEvents>("/root/GameEvents").EmitSignal(GameEvents.SignalName.PausePlayerInteractions,true);
+
         CurrentDialogueName = name;
         CurrentDialoguePath = path;
         CurrentDialogueFile = GD.Load(path);
+        
         DialogueLine dialogue = await DialogueManager.GetNextDialogueLine(CurrentDialogueFile, name);
         if (dialogue == null)
         {
@@ -105,6 +108,8 @@ public partial class DialogueScriptScene : Node2D
     private void DialogueEnded(Resource dialogueResource)
     {
         GD.Print("Dialogue ended");
+        GetNode<GameEvents>("/root/GameEvents").EmitSignal(GameEvents.SignalName.PausePlayerInteractions, false);
+
         this.SetVisible(false);
         CurrentDialogueName = null;
         CurrentLineDisplayed = null;

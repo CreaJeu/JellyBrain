@@ -11,7 +11,7 @@ public partial class SavingIcon : Node2D
         GetNode<GameEvents>("/root/GameEvents").SaveGameAndPosition += LaunchSaving;
     }
 
-    public void LaunchSaving(Vector2 position, string name)
+    private void LaunchSaving(Vector2 position, string name)
     {
         this.SetVisible(true);
         var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");

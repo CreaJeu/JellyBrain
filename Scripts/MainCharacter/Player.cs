@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using JellyBrain.Scripts.GameLogic;
 
 public partial class Player: CharacterBody2D
 {
@@ -33,11 +34,23 @@ public partial class Player: CharacterBody2D
 		healthComponent.HealthBelowZero += _onBelowZeroHealth;
 		healthComponent.HealthChanged += _onHealthChanged;
 		
+		
+		GetNode<GameEvents>("/root/GameEvents").PausePlayerInteractions += pause =>
+		{
+			_blockControls = pause;
+			Velocity = Vector2.Zero;
+			
+		};
+
+		
 		_lastResetCheckpoint =  GetNode<ResetCheckpoint>("ResetCheckpoints/StartingCheckpoint");
 	}
 	
 	public override void _Process(double delta) {
-		if (_blockControls) return;
+		if (_blockControls)
+		{
+			return;
+		};
 
 		var velocity = Velocity;
 		
