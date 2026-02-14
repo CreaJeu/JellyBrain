@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Player: CharacterBody2D
 {
@@ -19,7 +20,10 @@ public partial class Player: CharacterBody2D
 	
 	private HealthComponent healthComponent;
 	private AnimatedSprite2D _sprite;
+	private ResetCheckpoint _lastResetCheckpoint;
 
+	private bool _blockControls = false;
+	
 	public override void _Ready()
 	{	
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -28,9 +32,13 @@ public partial class Player: CharacterBody2D
 		healthComponent = GetNode<HealthComponent>("HealthComponent");
 		healthComponent.HealthBelowZero += _onBelowZeroHealth;
 		healthComponent.HealthChanged += _onHealthChanged;
+		
+		_lastResetCheckpoint =  GetNode<ResetCheckpoint>("ResetCheckpoints/StartingCheckpoint");
 	}
 	
 	public override void _Process(double delta) {
+		if (_blockControls) return;
+
 		var velocity = Velocity;
 		
 		if (Input.IsActionPressed("move_right")) {
@@ -83,6 +91,33 @@ public partial class Player: CharacterBody2D
 		tween.TweenProperty(_sprite, "modulate", Colors.White, 1.0f);
 		GD.Print($"oldHealth: {oldHealth}, newHealth: {newHealth}");
 		
+	}
+
+	public async Task OnOutOfBounds()
+	{
+		_blockControls = true;
+		Velocity = Vector2.Zero;
+		await ResetPlayerPosition();
+		_blockControls = false;
+	}
+	
+	// Async to do tween animations before and after position reset
+	private async Task ResetPlayerPosition()
+	{
+		var tween = CreateTween();
+		tween.TweenProperty(_sprite, "modulate:a", 0f, 0.5f);
+		await ToSignal(tween, Tween.SignalName.Finished);
+
+		GlobalPosition = _lastResetCheckpoint.GlobalPosition;
+
+		var tween2 = CreateTween();
+		tween2.TweenProperty(_sprite, "modulate:a", 1f, 0.5f);
+		await ToSignal(tween2, Tween.SignalName.Finished);
+	}
+	
+	public void OnResetCheckpointReached(ResetCheckpoint checkpoint)
+	{
+		_lastResetCheckpoint = checkpoint;
 	}
 
 }

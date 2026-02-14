@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://i44v8fahfs2s"]
+[gd_scene load_steps=36 format=4 uid="uid://i44v8fahfs2s"]
 
 [ext_resource type="Texture2D" uid="uid://ddf73f6q70eyi" path="res://Assets/Sprites/yvanPixelArt/background/background.png" id="1_2jcla"]
 [ext_resource type="Material" uid="uid://dhks2n3gkpg7l" path="res://Assets/Shaders/watershader material3.tres" id="1_7th4q"]
@@ -23,6 +23,8 @@
 [ext_resource type="Material" uid="uid://7co3phtwiifv" path="res://Assets/Particles/Little Bubble Particle.tres" id="16_ak604"]
 [ext_resource type="Texture2D" uid="uid://uu5calwad4e2" path="res://Assets/Sprites/yvanPixelArt/TileSet/tileset_test.png" id="16_nt2eh"]
 [ext_resource type="Material" uid="uid://c5laiy1uakc75" path="res://Assets/Particles/Big Bubble Particle.tres" id="18_vimvf"]
+[ext_resource type="Script" uid="uid://bdh8ievritfta" path="res://Scenes/ResetCheckpoint.cs" id="23_5oxhp"]
+[ext_resource type="Script" uid="uid://b3djgcanar0k0" path="res://Scenes/LevelBoundsArea.cs" id="24_nt2eh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ghshe"]
 shader = ExtResource("1_vimvf")
@@ -340,6 +342,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
 size = Vector2(18, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8edxt"]
+size = Vector2(20, 60)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5oxhp"]
+
 [node name="MainScene" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
@@ -433,21 +440,21 @@ tile_set = SubResource("TileSet_7ycvg")
 position = Vector2(665, 553)
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
-position = Vector2(592, 563)
+position = Vector2(545, 584)
+collision_mask = 129
 script = ExtResource("2_d5x1h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(-47, 0)
 sprite_frames = SubResource("SpriteFrames_42l1d")
 frame = 3
 frame_progress = 0.29947296
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-46, 4.5)
+position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_8mm7a")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-49, 1)
+position = Vector2(0, 1)
 zoom = Vector2(2, 2)
 position_smoothing_speed = 25.0
 
@@ -491,3 +498,50 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ResetCheckpoints" type="Node2D" parent="."]
+position = Vector2(546, 597)
+
+[node name="StartingCheckpoint" type="Area2D" parent="ResetCheckpoints"]
+position = Vector2(-2, 10)
+collision_layer = 0
+script = ExtResource("23_5oxhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetCheckpoints/StartingCheckpoint"]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_8edxt")
+
+[node name="Checkpoint1" type="Area2D" parent="ResetCheckpoints"]
+position = Vector2(-206, 58)
+collision_layer = 0
+script = ExtResource("23_5oxhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetCheckpoints/Checkpoint1"]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_8edxt")
+
+[node name="Checkpoint2" type="Area2D" parent="ResetCheckpoints"]
+position = Vector2(-193, -55)
+collision_layer = 0
+script = ExtResource("23_5oxhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetCheckpoints/Checkpoint2"]
+position = Vector2(0, -25.5)
+shape = SubResource("RectangleShape2D_8edxt")
+
+[node name="Checkpoint3" type="Area2D" parent="ResetCheckpoints"]
+position = Vector2(240, -27)
+collision_layer = 0
+script = ExtResource("23_5oxhp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetCheckpoints/Checkpoint3"]
+position = Vector2(0, -25.5)
+shape = SubResource("RectangleShape2D_8edxt")
+
+[node name="LevelBoundsArea" type="Area2D" parent="."]
+position = Vector2(568, 698)
+collision_layer = 0
+script = ExtResource("24_nt2eh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelBoundsArea"]
+shape = SubResource("WorldBoundaryShape2D_5oxhp")
