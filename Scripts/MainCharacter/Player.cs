@@ -18,10 +18,12 @@ public partial class Player: CharacterBody2D
 	
 	[Export]
 	public float climbVelocity { get; set; } = 40.0f;
+	[Export]
+	public ResetCheckpoint LastResetCheckpoint;
+
 	
 	private HealthComponent healthComponent;
 	private AnimatedSprite2D _sprite;
-	private ResetCheckpoint _lastResetCheckpoint;
 
 	private bool _blockControls = false;
 	
@@ -43,14 +45,11 @@ public partial class Player: CharacterBody2D
 		};
 
 		
-		_lastResetCheckpoint =  GetNode<ResetCheckpoint>("ResetCheckpoints/StartingCheckpoint");
 	}
 	
-	public override void _Process(double delta) {
-		if (_blockControls)
-		{
-			return;
-		};
+	public override void _Process(double delta)
+	{
+		if (_blockControls) return;
 
 		var velocity = Velocity;
 		
@@ -85,7 +84,7 @@ public partial class Player: CharacterBody2D
 		var velocity = Velocity;
 		velocity.Y += (float)delta * GRAVITY;
 		Velocity = velocity;
-
+		
 		var motion = Velocity * (float)delta;
 		MoveAndSlide();
 	}
@@ -123,7 +122,7 @@ public partial class Player: CharacterBody2D
 		tween.TweenProperty(_sprite, "modulate:a", 0f, 0.5f);
 		await ToSignal(tween, Tween.SignalName.Finished);
 
-		GlobalPosition = _lastResetCheckpoint.GlobalPosition;
+		GlobalPosition = LastResetCheckpoint.GlobalPosition;
 
 		var tween2 = CreateTween();
 		tween2.TweenProperty(_sprite, "modulate:a", 1f, 0.5f);
@@ -132,7 +131,7 @@ public partial class Player: CharacterBody2D
 	
 	public void OnResetCheckpointReached(ResetCheckpoint checkpoint)
 	{
-		_lastResetCheckpoint = checkpoint;
+		LastResetCheckpoint = checkpoint;
 	}
 
 }
