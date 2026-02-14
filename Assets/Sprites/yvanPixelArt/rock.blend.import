@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bgquj05c17vjc"
-path="res://.godot/imported/rock.blend-59d1848a744b8903e0646ad637e0aa26.scn"
+valid=false
 
 [deps]
 
 source_file="res://Assets/Sprites/yvanPixelArt/rock.blend"
-dest_files=["res://.godot/imported/rock.blend-59d1848a744b8903e0646ad637e0aa26.scn"]
 
 [params]
 
