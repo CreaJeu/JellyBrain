@@ -1,6 +1,6 @@
 # 🧠 JellyBrain
 Salut ! ✌️  
-Bienvenue sur le repo de JellyBrain, un petit jeu [Godot](https://godotengine.org/) Engine créé par notre petit groupe [Créajeu](https://www.ascreb.org/clubs-pages/creajeu/) 👾
+Bienvenue sur le repo de JellyBrain, un petit jeu [Godot](https://godotengine.org/) créé par notre petit groupe [Créajeu](https://www.ascreb.org/clubs-pages/creajeu/) 👾
 
 ---
 # 🤝 Comment participer ?
@@ -23,7 +23,7 @@ Certains fichiers sont volumineux, on utilise donc `git-lfs`.
 Une fois installé, vous pouvez utiliser Git normalement.
 
 # Nos outils
-- Moteur de jeu : [Godot Engine](https://godotengine.org/)
+- Moteur de jeu : [Godot Engine](https://godotengine.org/download/archive/4.5-stable/) en **version 4.5 .NET**
 - Langage principal : C#
 - 3D : Blender
 
