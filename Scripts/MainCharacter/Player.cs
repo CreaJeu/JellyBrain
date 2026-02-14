@@ -87,8 +87,10 @@ public partial class Player: CharacterBody2D
 	
 	private void _onHealthChanged(int oldHealth, int newHealth)
 	{
-		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(_sprite, "modulate", Colors.White, 1.0f);
+		_sprite.Modulate = new Color(3f, 3f, 3f);
+		var tween = GetTree().CreateTween();
+		tween.TweenProperty(_sprite, "modulate", Colors.White, 0.5f);
+		
 		GD.Print($"oldHealth: {oldHealth}, newHealth: {newHealth}");
 		
 	}
