@@ -26,6 +26,8 @@ public partial class Player: CharacterBody2D
 	private AnimatedSprite2D _sprite;
 
 	private bool _blockControls = false;
+
+	private Vector2 _initialSpriteScale;
 	
 	[Signal]
 	public delegate void PlayerDiedEventHandler();
@@ -34,6 +36,7 @@ public partial class Player: CharacterBody2D
 	{	
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		_sprite.Play("default");
+		_initialSpriteScale = _sprite.Scale;
 		
 		healthComponent = GetNode<HealthComponent>("HealthComponent");
 		healthComponent.HealthBelowZero += _onBelowZeroHealth;
@@ -53,7 +56,10 @@ public partial class Player: CharacterBody2D
 
 		var velocity = Velocity;
 		
-		if (Input.IsActionPressed("move_right")) {
+		if (Input.IsActionPressed("move_right"))
+		{
+			// Turn sprite right
+			_sprite.Scale = new Vector2(_initialSpriteScale.X, _initialSpriteScale.Y);
 			if (velocity.X < maxSpeed) {
 				velocity.X += acceleration * (float) delta;
 			}
@@ -64,6 +70,8 @@ public partial class Player: CharacterBody2D
 		}
 		
 		if (Input.IsActionPressed("move_left")) {
+			// Turn sprite left
+			_sprite.Scale = new Vector2(-_initialSpriteScale.X, _initialSpriteScale.Y);
 			if (velocity.X > -maxSpeed) {
 				velocity.X -= acceleration * (float) delta;
 			}

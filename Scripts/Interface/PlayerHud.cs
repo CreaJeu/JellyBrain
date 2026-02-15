@@ -25,6 +25,7 @@ public partial class PlayerHud : Control
 		{
 			throw new NullReferenceException("Health component was not passed to the node");
 		}
+
 		hpHeartList = CollectionsAlternative.GetChildren<TextureRect>(GetNode<Control>("CanvasLayer/HP"));
 		healthComponent.HealthChanged += _onHealthChanged;
 

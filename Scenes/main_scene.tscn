@@ -375,6 +375,7 @@ point_count = 6
 [node name="Background" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_ghshe")
 position = Vector2(538, 567)
+scale = Vector2(1.5, 1.5)
 metadata/_edit_group_ = true
 
 [node name="Parallax2D" type="Parallax2D" parent="Background"]
