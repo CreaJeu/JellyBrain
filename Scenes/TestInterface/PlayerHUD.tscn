@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://2ubi3htuoya1"]
+[gd_scene load_steps=21 format=3 uid="uid://2ubi3htuoya1"]
 
 [ext_resource type="Script" uid="uid://clo7ovrhv2ju7" path="res://Scripts/Interface/PlayerHud.cs" id="1_mxnli"]
+[ext_resource type="Texture2D" uid="uid://ce4v6vdai6tvk" path="res://Assets/Sprites/Neutral/heart.png" id="2_awpsg"]
 [ext_resource type="Script" uid="uid://cgn30stqyxvbi" path="res://Scenes/Dialogue/DialogueScriptScene.cs" id="2_tubh3"]
 [ext_resource type="Texture2D" uid="uid://c6tp6svyry0yn" path="res://Assets/UI/DialogueBubble.png" id="3_ua0dn"]
 [ext_resource type="Texture2D" uid="uid://dcfsgxepcox3t" path="res://Assets/UI/CORAIL6.png" id="4_qj1an"]
@@ -87,29 +88,29 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/HP"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HP"]
 layout_mode = 0
-offset_right = 46.0
-offset_bottom = 44.0
-size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 43.0
+offset_bottom = 42.0
+texture = ExtResource("2_awpsg")
 
-[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/HP"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/HP"]
 layout_mode = 0
-offset_left = 58.0
-offset_right = 104.0
-offset_bottom = 44.0
-size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
+offset_left = 61.0
+offset_top = 2.0
+offset_right = 101.0
+offset_bottom = 42.0
+texture = ExtResource("2_awpsg")
 
-[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/HP"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/HP"]
 layout_mode = 0
-offset_left = 116.0
-offset_top = -1.0
-offset_right = 162.0
-offset_bottom = 43.0
-size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
+offset_left = 119.0
+offset_top = 2.0
+offset_right = 159.0
+offset_bottom = 42.0
+texture = ExtResource("2_awpsg")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_14ndq")
