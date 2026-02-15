@@ -27,6 +27,9 @@ public partial class Player: CharacterBody2D
 
 	private bool _blockControls = false;
 	
+	[Signal]
+	public delegate void PlayerDiedEventHandler();
+	
 	public override void _Ready()
 	{	
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -41,10 +44,7 @@ public partial class Player: CharacterBody2D
 		{
 			_blockControls = pause;
 			Velocity = Vector2.Zero;
-			
 		};
-
-		
 	}
 	
 	public override void _Process(double delta)
@@ -94,7 +94,7 @@ public partial class Player: CharacterBody2D
 		GD.Print("Yer DEAD!");
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(_sprite, "modulate", Colors.Red, 1.0f);
-
+		EmitSignalPlayerDied();
 	}
 	
 	private void _onHealthChanged(int oldHealth, int newHealth)

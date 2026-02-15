@@ -495,11 +495,12 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="PauseManager" type="Node" parent="Managers" node_paths=PackedStringArray("PauseMenu", "DarkenBackground")]
+[node name="PauseManager" type="Node" parent="Managers" node_paths=PackedStringArray("PauseMenu", "DarkenBackground", "Player")]
 process_mode = 3
 script = ExtResource("5_hq1ik")
 PauseMenu = NodePath("../../CanvasLayer/PauseMenu")
 DarkenBackground = NodePath("../../CanvasLayer/DarkenBackgroundRect")
+Player = NodePath("../../Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -5,11 +5,23 @@ public partial class PauseManager : Node
 {
 	[Export] public PauseMenu PauseMenu;
 	[Export] public ColorRect DarkenBackground;
+	[Export] public Player Player;
 
 	public override void _Ready()
 	{
 		if (PauseMenu != null)
+		{
 			PauseMenu.ResumeGame += OnResumeGame;
+			PauseMenu.RestartGame += RestartLevel;
+		}		
+		if (Player != null)
+		{
+			Player.PlayerDied += () =>
+			{
+				// CallDeferred to finish all processing before restarting scene
+				CallDeferred(nameof(RestartLevel));
+			};
+		}
 	}
 	
 	public override void _UnhandledInput(InputEvent @event)
@@ -37,6 +49,7 @@ public partial class PauseManager : Node
 	private void OnResumeGame()
 	{
 		HidePauseMenu();
+		GetTree().Paused = false;
 	}
 
 	private void HidePauseMenu()
@@ -44,7 +57,11 @@ public partial class PauseManager : Node
 		PauseMenu.Visible = false;
 		if (DarkenBackground != null)
 			DarkenBackground.Visible = false;
+	}
 
-		GetTree().Paused = false;
+	private void RestartLevel()
+	{
+		OnResumeGame();
+		GetTree().ReloadCurrentScene();
 	}
 }
