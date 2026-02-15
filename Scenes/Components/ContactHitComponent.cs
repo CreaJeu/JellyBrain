@@ -73,7 +73,12 @@ public partial class ContactHitComponent : Area2D
 		if (body.HasNode("HealthComponent"))
 		{
 			var health = body.GetNode<HealthComponent>("HealthComponent");
-			Connect(SignalName.HitHittableObject, new Callable(health, nameof(HealthComponent.ApplyDamage)));
+			var applyDamageCallable = new Callable(health, nameof(HealthComponent.ApplyDamage));
+			if (!IsConnected(SignalName.HitHittableObject, applyDamageCallable))
+			{
+				Connect(SignalName.HitHittableObject, applyDamageCallable);
+			}
+			
 		}
 
 		if (!_onCooldown) _hit();
