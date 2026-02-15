@@ -29,7 +29,8 @@ public partial class PauseMenu : Control
 	
 	private void _onRestartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://main_scene.tscn");
+		EmitSignal(SignalName.ResumeGame);
+		GetTree().ChangeSceneToFile("res://Scenes/main_scene.tscn");
 	}
 
 
