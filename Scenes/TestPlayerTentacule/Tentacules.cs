@@ -15,8 +15,6 @@ public partial class Tentacules : Node2D
     
     private List<RigidBody2D> _segments = new List<RigidBody2D>();
     private Line2D _line;
-    
-    private int _currentSegmentCount = 0;
     private int _targetSegmentCount = 10;
     private Node2D _lastAttachedNode;
 
@@ -32,8 +30,11 @@ public partial class Tentacules : Node2D
         {
             foreach (var s in _segments) s.QueueFree();
             _segments.Clear();
+            Vector2  DistanceToReach = this.GlobalPosition - GetGlobalMousePosition(); 
             
-             GrowTentacle(10,GetGlobalMousePosition());
+            //hardcoded 5 Value it will probably need a change if the viewport size changes or if size of things changes
+            int tentaculeLength = (int)DistanceToReach.Length() / 5;
+             GrowTentacle(tentaculeLength,GetGlobalMousePosition());
         }
     }
 
@@ -73,42 +74,50 @@ public partial class Tentacules : Node2D
     
     
     
-    private void AddSegment()
+    private void AddSegment(int i)
     {
         RigidBody2D segment = new RigidBody2D();
-        // Spawn it slightly offset from the last one to avoid physics overlap
-        segment.GlobalPosition = _lastAttachedNode.GlobalPosition + new Vector2(0, DistanceBetweenParts);
+        segment.Position = new Vector2(0, (i + 1) * DistanceBetweenParts);
+        segment.Mass = 0.1f; // Light segments feel more organic
+            
     
-        segment.Mass = 0.1f;
+            
+        //4 being the tentacule layer
+        //1 layer on wich the player is
+        //prevent collision problems between player and tentacles
         segment.CollisionLayer = 4;
         segment.CollisionMask = 1;
-    
-        // Add CollisionShape (as you did before)
+            
         CollisionShape2D shape = new CollisionShape2D();
         shape.Shape = new CircleShape2D { Radius = 2.0f };
         segment.AddChild(shape);
-
+    
         AddChild(segment);
         _segments.Add(segment);
-
+    
         PinJoint2D joint = new PinJoint2D();
-        joint.GlobalPosition = _lastAttachedNode.GlobalPosition;
+        joint.Position = new Vector2(0, i * DistanceBetweenParts);
         joint.NodeA = _lastAttachedNode.GetPath();
         joint.NodeB = segment.GetPath();
-        joint.Softness = 0.1f;
+        joint.DisableCollision = true; 
+        joint.Softness = 0.1f;       
+        joint.Bias = 0.1f;             
         AddChild(joint);
-
+    
         _lastAttachedNode = segment; // The next segment will attach to this one
     }
     private async void GrowTentacle(int length, Vector2 targetPos)
     {
+        
+        LookAt(targetPos);
+        Rotation -= Mathf.Pi / 2;
+        
         _targetSegmentCount = length;
-        _currentSegmentCount = 0;
         _lastAttachedNode = PlayerNode2D; // Start attaching at the player
 
         for (int i = 0; i < _targetSegmentCount; i++)
         {
-            AddSegment();
+            AddSegment(i);
             // Wait for 0.05 seconds between each segment
             await ToSignal(GetTree().CreateTimer(0.05f), "timeout");
         
@@ -137,59 +146,59 @@ public partial class Tentacules : Node2D
     
     
     
-    // private Line2D CreateLine(int distanceToObject)
-    // {
-    //     //300 here is hardcoded because it the distance from an end of the screen to the other
-    //     TentaculeLength = distanceToObject / 10;
-    //     
-    //     Line2D line = new Line2D();
-    //     
-    //     line.Width = LineWidth;
-    //     line.Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png");
-    //     
-    //     line.TextureMode = Line2D.LineTextureMode.Tile; 
-    //
-    //     line.TextureFilter = TextureFilterEnum.Nearest;
-    //     
-    //     
-    //     AddChild(line);
-    //
-    //     
-    //     Node2D parentToAttachTo = PlayerNode2D;
-    //
-    //     for (int i = 0; i < TentaculeLength; i++)
-    //     {
-    //         RigidBody2D segment = new RigidBody2D();
-    //         segment.Position = new Vector2(0, (i + 1) * DistanceBetweenParts);
-    //         segment.Mass = 0.1f; // Light segments feel more organic
-    //         
-    //
-    //         
-    //         //4 being the tentacule layer
-    //         //1 layer on wich the player is
-    //         //prevent collision problems between player and tentacles
-    //         segment.CollisionLayer = 4;
-    //         segment.CollisionMask = 1;
-    //         
-    //         CollisionShape2D shape = new CollisionShape2D();
-    //         shape.Shape = new CircleShape2D { Radius = 2.0f };
-    //         segment.AddChild(shape);
-    //
-    //         AddChild(segment);
-    //         _segments.Add(segment);
-    //
-    //         PinJoint2D joint = new PinJoint2D();
-    //         joint.Position = new Vector2(0, i * DistanceBetweenParts);
-    //         joint.NodeA = parentToAttachTo.GetPath();
-    //         joint.NodeB = segment.GetPath();
-    //         joint.DisableCollision = true; 
-    //         joint.Softness = 0.1f;       
-    //         joint.Bias = 0.1f;             
-    //         AddChild(joint);
-    //
-    //         parentToAttachTo = segment;
-    //     }
-    //
-    //     return line;
-    // }
+    private Line2D CreateLineAncient(int distanceToObject)
+    {
+        //300 here is hardcoded because it the distance from an end of the screen to the other
+        TentaculeLength = distanceToObject / 10;
+        
+        Line2D line = new Line2D();
+        
+        line.Width = LineWidth;
+        line.Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png");
+        
+        line.TextureMode = Line2D.LineTextureMode.Tile; 
+    
+        line.TextureFilter = TextureFilterEnum.Nearest;
+        
+        
+        AddChild(line);
+    
+        
+        Node2D parentToAttachTo = PlayerNode2D;
+    
+        for (int i = 0; i < TentaculeLength; i++)
+        {
+            RigidBody2D segment = new RigidBody2D();
+            segment.Position = new Vector2(0, (i + 1) * DistanceBetweenParts);
+            segment.Mass = 0.1f; // Light segments feel more organic
+            
+    
+            
+            //4 being the tentacule layer
+            //1 layer on wich the player is
+            //prevent collision problems between player and tentacles
+            segment.CollisionLayer = 4;
+            segment.CollisionMask = 1;
+            
+            CollisionShape2D shape = new CollisionShape2D();
+            shape.Shape = new CircleShape2D { Radius = 2.0f };
+            segment.AddChild(shape);
+    
+            AddChild(segment);
+            _segments.Add(segment);
+    
+            PinJoint2D joint = new PinJoint2D();
+            joint.Position = new Vector2(0, i * DistanceBetweenParts);
+            joint.NodeA = parentToAttachTo.GetPath();
+            joint.NodeB = segment.GetPath();
+            joint.DisableCollision = true; 
+            joint.Softness = 0.1f;       
+            joint.Bias = 0.1f;             
+            AddChild(joint);
+    
+            parentToAttachTo = segment;
+        }
+    
+        return line;
+    }
 }
