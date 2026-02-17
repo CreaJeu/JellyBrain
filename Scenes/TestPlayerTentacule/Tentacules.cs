@@ -9,21 +9,41 @@ public partial class Tentacules : Node2D
     [Export] public float LineWidth = 2.0f; 
     [Export] public Node2D PlayerNode2D;
     
+    
+    
     private List<RigidBody2D> _segments = new List<RigidBody2D>();
     private Line2D _line;
 
     public override void _Ready()
     {
-        _line = new Line2D();
-        _line.Width = LineWidth;
-        _line.Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png");
-        
-        _line.TextureMode = Line2D.LineTextureMode.Tile; 
+        _line = CreateLine(150);
+
+    }
     
-        _line.TextureFilter = TextureFilterEnum.Nearest;
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("grab"))
+        {
+        //TODO do shit
+        }
+    }
+
+    private Line2D CreateLine(int distanceToObject)
+    {
+        //300 here is hardcoded because it the distance from an end of the screen to the other
+        TentaculeLength = distanceToObject / 10;
+        
+        Line2D line = new Line2D();
+        
+        line.Width = LineWidth;
+        line.Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png");
+        
+        line.TextureMode = Line2D.LineTextureMode.Tile; 
+    
+        line.TextureFilter = TextureFilterEnum.Nearest;
         
         
-        AddChild(_line);
+        AddChild(line);
 
         
         Node2D parentToAttachTo = PlayerNode2D;
@@ -43,7 +63,7 @@ public partial class Tentacules : Node2D
             segment.CollisionMask = 1;
             
             CollisionShape2D shape = new CollisionShape2D();
-            shape.Shape = new CircleShape2D { Radius = 5.0f };
+            shape.Shape = new CircleShape2D { Radius = 2.0f };
             segment.AddChild(shape);
 
             AddChild(segment);
@@ -54,20 +74,28 @@ public partial class Tentacules : Node2D
             joint.NodeA = parentToAttachTo.GetPath();
             joint.NodeB = segment.GetPath();
             joint.DisableCollision = true; 
-            joint.Softness = 1.5f;       
+            joint.Softness = 0.1f;       
             joint.Bias = 0.1f;             
             AddChild(joint);
 
             parentToAttachTo = segment;
         }
+
+        return line;
     }
 
     public override void _Process(double delta)
     {
-        _line.ClearPoints();
+        if (_line != null) DisplayLine();
         
-        _line.AddPoint(Vector2.Zero); 
+        
+    }
 
+    private void DisplayLine()
+    {
+        _line.ClearPoints();
+        _line.AddPoint(Vector2.Zero); 
+        
         foreach (var segment in _segments)
         {
             _line.AddPoint(ToLocal(segment.GlobalPosition));
