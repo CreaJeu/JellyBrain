@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpqa1ccj3cttd"]
+[gd_scene load_steps=3 format=3 uid="uid://bpqa1ccj3cttd"]
 
 [ext_resource type="Texture2D" uid="uid://xv8o6yibf0yr" path="res://Assets/Sprites/Neutral/checkpoint_anchor(1).png" id="1_8ftl5"]
+[ext_resource type="Script" uid="uid://didajkxw0pm0i" path="res://Scenes/Prefabs/Entities/GrabbableExampleObject.cs" id="1_e1f1i"]
 
-[node name="GrabbableExampleObject" type="RigidBody2D"]
+[node name="GrabbableExampleObject" type="RigidBody2D" groups=["grabbable"]]
+script = ExtResource("1_e1f1i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8ftl5")

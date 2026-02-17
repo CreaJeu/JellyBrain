@@ -1,170 +1,121 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class Tentacules : Node2D
 {
-    [Export] public int TentaculeLength = 10;
-    [Export] public float DistanceBetweenParts = 5.0f;
-    [Export] public float LineWidth = 2.0f;
-
-    [Export] public float jointsSoftness = 0.1f;
-    [Export] public float jointsBias = 1f;
+    [Export] public float SegmentSize = 4.0f;
+    [Export] public int MaxSegments = 50;
     [Export] public Node2D PlayerNode2D;
-    
-    private List<RigidBody2D> _segments = new List<RigidBody2D>();
+    [Export(PropertyHint.Layers2DPhysics)] public uint CollisionMask = 1;
+
+    private List<Vector2> _segmentPositions = new List<Vector2>();
     private Line2D _line;
-    
-    private PinJoint2D _grabJoint;
-    private RigidBody2D _grabbedObject;
+    private GrabbableExampleObject _grabbedObject = null;
 
     public override void _Ready()
     {
-        // 1. Line Visual Setup
-        _line = new Line2D();
-        _line.Width = LineWidth;
-        _line.Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png");
-        _line.TextureMode = Line2D.LineTextureMode.Tile; 
-        _line.TextureFilter = TextureFilterEnum.Nearest;
-        
-        // Ensure the line is drawn behind the player or at top level
+        _line = new Line2D {
+            Width = SegmentSize,
+            TextureMode = Line2D.LineTextureMode.Tile,
+            TextureFilter = TextureFilterEnum.Nearest,
+            Texture = GD.Load<Texture2D>("res://Assets/Sprites/Neutral/tentaculePart.png"),
+            Antialiased = false
+        };
         AddChild(_line);
-
-        Vector2 spawnPos = PlayerNode2D.GlobalPosition + new Vector2(0, 5);
-        Node2D parentToAttachTo = PlayerNode2D;
-
-        for (int i = 0; i < TentaculeLength; i++)
-        {
-            RigidBody2D segment = new RigidBody2D();
-        
-            // 1. Physical positioning
-            segment.GlobalPosition = spawnPos + new Vector2(0, (i + 1) * DistanceBetweenParts);
-        
-            // 2. STABILITY: Freeze the segment so it doesn't move during setup
-            segment.Freeze = true; 
-        
-            segment.Mass = 0.1f;
-            segment.CollisionLayer = 4;
-            segment.CollisionMask = 1; 
-            segment.LinearDamp = 3.0f; // High damping stops the "crazy" movement
-            segment.AngularDamp = 3.0f;
-
-            CollisionShape2D shape = new CollisionShape2D();
-            shape.Shape = new CircleShape2D { Radius = 3.0f }; // Smaller radius = less overlap
-            segment.AddChild(shape);
-
-            AddChild(segment);
-            _segments.Add(segment);
-
-            PinJoint2D joint = new PinJoint2D();
-            joint.GlobalPosition = parentToAttachTo.GlobalPosition;
-            joint.NodeA = parentToAttachTo.GetPath();
-            joint.NodeB = segment.GetPath();
-        
-            joint.Softness = jointsSoftness;
-            joint.Bias = jointsBias;
-            joint.DisableCollision = true; // MUST BE TRUE
-
-            AddChild(joint);
-            parentToAttachTo = segment;
-        }
-
-        // 3. WAIT: Tell the segments to wake up only AFTER everything is connected
-        CallDeferred(MethodName.UnfreezeSegments);
-    }
-
-    private void UnfreezeSegments()
-    {
-        foreach (var segment in _segments)
-        {
-            segment.Freeze = false;
-        }
-    }
-
-    public override void _Process(double delta)
-    {
-        _line.ClearPoints();
-        
-        _line.AddPoint(_line.ToLocal(PlayerNode2D.GlobalPosition));
-
-        foreach (var segment in _segments)
-        {
-            _line.AddPoint(_line.ToLocal(segment.GlobalPosition));
-        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_segments.Count > 0)
+        if (PlayerNode2D == null) return;
+
+        if (Input.IsActionPressed("grab"))
         {
-            var lastSegment = _segments[^1];
-            var mousePos = GetGlobalMousePosition();
-            var direction = mousePos - lastSegment.GlobalPosition;
+            // The tip is the Target (Mouse)
+            Vector2 target = GetGlobalMousePosition();
+            UpdateTentacle(target);
+            HandleGrabbing(delta);
+        }
+        else
+        {
+            ReleaseObject();
+            _segmentPositions.Clear();
+            _line.ClearPoints();
+        }
+    }
+
+    private void UpdateTentacle(Vector2 targetPos)
+    {
+        _segmentPositions.Clear();
+        _line.ClearPoints();
+
+        Vector2 start = PlayerNode2D.GlobalPosition;
+        Vector2 direction = (targetPos - start).Normalized();
+        float dist = start.DistanceTo(targetPos);
         
-            // Stronger pull if farther away
-            lastSegment.ApplyCentralForce(direction * 500.0f);
-            
-            // Damping helps with the "laggy" elastic feel
-            lastSegment.LinearVelocity *= 0.95f;
-            lastSegment.AngularVelocity *= 0.95f;
-        }
-    }
-    
-    public override void _Input(InputEvent @event)
-    {
-        if (@event.IsActionPressed("grab")) 
-        {
-            TryGrab();
-        }
-        else if (@event.IsActionReleased("grab"))
-        {
-            ReleaseGrab();
-        }
-    }
+        // Ensure we always have at least 1 segment
+        int count = Mathf.Clamp((int)(dist / SegmentSize), 1, MaxSegments);
 
-    private void TryGrab()
-    {
-        var tip = _segments[^1];
         var spaceState = GetWorld2D().DirectSpaceState;
-    
-        var query = new PhysicsPointQueryParameters2D();
-        query.Position = tip.GlobalPosition;
-        query.CollisionMask = 1; 
-    
-        var result = spaceState.IntersectPoint(query);
+        Vector2 currentPoint = start;
 
-        if (result.Count > 0)
+        // Add the start point (Player)
+        _line.AddPoint(_line.ToLocal(currentPoint));
+        _segmentPositions.Add(currentPoint);
+
+        for (int i = 0; i < count; i++)
         {
-            GD.Print("Grabbed Object!");
-            var hit = result[0];
-            Variant colliderVariant = hit["collider"];
-            
-            if (colliderVariant.Obj is RigidBody2D target)
+            Vector2 nextPoint = currentPoint + direction * SegmentSize;
+
+            // Collision check
+            var query = PhysicsRayQueryParameters2D.Create(currentPoint, nextPoint, CollisionMask);
+            var result = spaceState.IntersectRay(query);
+
+            if (result.Count > 0)
             {
-                _grabbedObject = target;
-            
-                _grabJoint = new PinJoint2D();
-                // Attach the joint to the world at the tip's current position
-                _grabJoint.GlobalPosition = tip.GlobalPosition;
-            
-                _grabJoint.NodeA = tip.GetPath();
-                _grabJoint.NodeB = _grabbedObject.GetPath();
-                
-                // Allow the object to move smoothly
-                _grabJoint.Softness = 0.1f;
-            
-                AddChild(_grabJoint);
+                Vector2 hitPos = (Vector2)result["position"];
+                _segmentPositions.Add(hitPos);
+                _line.AddPoint(_line.ToLocal(hitPos));
+                break; // Stop tentacle at the wall
+            }
+
+            _segmentPositions.Add(nextPoint);
+            _line.AddPoint(_line.ToLocal(nextPoint));
+            currentPoint = nextPoint;
+        }
+    }
+
+    private void HandleGrabbing(double delta)
+    {
+        if (_segmentPositions.Count == 0) return;
+        
+        // The tip is the last point in our calculated list
+        Vector2 tip = _segmentPositions[^1];
+
+        if (_grabbedObject == null)
+        {
+            // Only look for a NEW object if we aren't already holding one
+            foreach (Node node in GetTree().GetNodesInGroup("grabbable"))
+            {
+                if (node is GrabbableExampleObject obj && obj.GlobalPosition.DistanceTo(tip) < SegmentSize * 4.0f)
+                {
+                    _grabbedObject = obj;
+                    _grabbedObject.OnGrab();
+                    break;
+                }
             }
         }
+        else
+        {
+            // If we ARE holding one, force it to the tip position
+            _grabbedObject.MoveTo(tip, delta);
+        }
     }
 
-    private void ReleaseGrab()
+    private void ReleaseObject()
     {
-        if (_grabJoint != null)
+        if (_grabbedObject != null)
         {
-            GD.Print("Released Object");
-            _grabJoint.QueueFree();
-            _grabJoint = null;
+            _grabbedObject.OnRelease(Vector2.Zero);
             _grabbedObject = null;
         }
     }
