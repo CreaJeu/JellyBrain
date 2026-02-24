@@ -9,6 +9,12 @@ public partial class Tentacules : Node2D
     [Export] public float PushStrength =  1.0f;
     [Export] public float ForceThatPushTentaculeToMouse = 3.0f ;
 
+
+    [Export] public float JointsSoftness = 0.1f;
+    [Export] public float JointsBias = 0.1f;
+    
+    
+    [Export] public float TimeBetweenSpawn = 0.025f;
     [Export] public Node2D PlayerNode2D;
     
     
@@ -16,11 +22,12 @@ public partial class Tentacules : Node2D
     private Line2D _line;
     private int _targetSegmentCount = 10;
     private Node2D _lastAttachedNode;
-    private bool _currentlyGrabbing = false; 
+    private bool _currentlyGrabbing = false;
+
+    private int _ropeSegmentMass = 50;
 
     public override void _Ready()
     {
-        // _line = CreateLine(150);
         _line = CreateLine();
     }
     
@@ -86,8 +93,11 @@ public partial class Tentacules : Node2D
     {
         RigidBody2D segment = new RigidBody2D();
         segment.Position = new Vector2(0, (i + 1) * DistanceBetweenParts);
-        segment.Mass = 0.1f; // Light segments feel more organic
-            
+        if (i == 0) segment.Mass = _ropeSegmentMass;
+        
+        //will break  if i is in a loop that is not going from 0 to X
+        else segment.Mass = _ropeSegmentMass /=  2 ; // Light segments feel more organic
+        
     
             
         //4 being the tentacule layer
@@ -108,8 +118,8 @@ public partial class Tentacules : Node2D
         joint.NodeA = _lastAttachedNode.GetPath();
         joint.NodeB = segment.GetPath();
         joint.DisableCollision = true; 
-        joint.Softness = 0.1f;       
-        joint.Bias = 0.1f;             
+        joint.Softness = JointsSoftness;       
+        joint.Bias = JointsBias ;             
         AddChild(joint);
     
         _lastAttachedNode = segment; // The next segment will attach to this one
@@ -127,10 +137,18 @@ public partial class Tentacules : Node2D
         {
             AddSegment(i);
             // Wait for 0.05 seconds between each segment
-            await ToSignal(GetTree().CreateTimer(0.05f), "timeout");
+            await ToSignal(GetTree().CreateTimer(TimeBetweenSpawn), "timeout");
         
             // Optional: Apply a small push toward the mouse as it grows
             PushToward(targetPos);
+        }
+
+        foreach (var segment in _segments)
+        {
+            GD.Print(segment.Mass);
+        }
+        {
+            
         }
     }
 
@@ -165,8 +183,10 @@ public partial class Tentacules : Node2D
         {
 
             RigidBody2D segment = _segments[i];
+            // Vector2  distanceToReach = this.GlobalPosition - GetGlobalMousePosition();
+                
             Vector2 direction = GetGlobalMousePosition() - segment.GlobalPosition;
-            
+        
             // resets it each frame so that when the mouse moves rigid bodies move too
             //TODO maybe improve this later on ? 
             segment.ConstantForce = direction * ForceThatPushTentaculeToMouse;

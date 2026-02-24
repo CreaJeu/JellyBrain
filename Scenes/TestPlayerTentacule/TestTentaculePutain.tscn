@@ -511,6 +511,9 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="Tentacules" type="Node2D" parent="Player" node_paths=PackedStringArray("PlayerNode2D")]
 script = ExtResource("21_p7oej")
+ForceThatPushTentaculeToMouse = 40.0
+JointsSoftness = 0.0
+JointsBias = 0.0
 PlayerNode2D = NodePath("..")
 
 [node name="Managers" type="Node" parent="."]
