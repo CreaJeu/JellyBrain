@@ -8,10 +8,11 @@ public partial class Tentacules : Node2D
     [Export] public float LineWidth = 2.0f; 
     [Export] public float PushStrength =  1.0f;
     [Export] public float ForceThatPushTentaculeToMouse = 3.0f ;
+    [Export] public float MaxTentaculeLength = 150f;
 
 
     [Export] public float JointsSoftness = 0.1f;
-    [Export] public float JointsBias = 0.1f;
+    [Export] public float JointsBias = 0.9f;
     
     
     [Export] public float TimeBetweenSpawn = 0.025f;
@@ -38,11 +39,18 @@ public partial class Tentacules : Node2D
             foreach (var s in _segments) s.QueueFree();
             _segments.Clear();
             Vector2  DistanceToReach = this.GlobalPosition - GetGlobalMousePosition();
-            _currentlyGrabbing = true;
             
-            //hardcoded 5 Value it will probably need a change if the viewport size changes or if size of things changes
-            int tentaculeLength = (int)DistanceToReach.Length() / 5;
-             GrowTentacle(tentaculeLength,GetGlobalMousePosition());
+            //This limits the length of the tentacule to preven wiggly animation
+            //it is not a skill issue, just a feature
+            if (DistanceToReach.Length() < MaxTentaculeLength)
+            {
+                _currentlyGrabbing = true;
+            
+                //hardcoded 5 Value it will probably need a change if the viewport size changes or if size of things changes
+                int tentaculeLength = (int)DistanceToReach.Length() / 5;
+                GrowTentacle(tentaculeLength,GetGlobalMousePosition());
+            }
+            
         }
 
         if (@event.IsActionReleased("grab"))
@@ -183,17 +191,19 @@ public partial class Tentacules : Node2D
         {
 
             RigidBody2D segment = _segments[i];
-            // Vector2  distanceToReach = this.GlobalPosition - GetGlobalMousePosition();
+            Vector2  distanceToReach = this.GlobalPosition - GetGlobalMousePosition();
                 
             Vector2 direction = GetGlobalMousePosition() - segment.GlobalPosition;
-        
-            // resets it each frame so that when the mouse moves rigid bodies move too
-            //TODO maybe improve this later on ? 
-            segment.ConstantForce = direction * ForceThatPushTentaculeToMouse;
-            if (i == _targetSegmentCount)
+            float totalLength = DistanceBetweenParts * _segments.Count;
+            if (distanceToReach.Length() <= totalLength)
             {
-                segment.ConstantForce = direction * ForceThatPushTentaculeToMouse * 2;
+                segment.ConstantForce = direction * ForceThatPushTentaculeToMouse;
+                if (i == _targetSegmentCount)
+                {
+                    segment.ConstantForce = direction * ForceThatPushTentaculeToMouse * 2;
+                }
             }
+            
 
         }
     }
